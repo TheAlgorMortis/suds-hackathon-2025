@@ -1,0 +1,308 @@
+/* Header */
+.header {
+  color: var(--fg-color);
+  background-color: var(--bg-color);
+  border: 5px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  width: 70%;
+  margin: 0 auto;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 3px rgba(0, 0, 0, 0.5);
+}
+.desktopHeader {
+  display: flex;
+  align-items: center;
+}
+.titleSizer {
+  flex: 1;
+}
+.title {
+  color: var(--border-color);
+  font-family: "Fredoka One", sans-serif;
+}
+
+.xCol {
+  color: var(--x-color);
+  font-family: "Fredoka One", sans-serif;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.locationBlock {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: var(--x-color);
+  color: #fff;
+  border: 3px solid var(--x-color);
+  border-radius: 1rem;
+}
+
+/********************
+ *    Navigation    *
+ *******************/
+
+/* nav group */
+.nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Shared button look for nav states */
+.navButton,
+.navSelected {
+  color: var(--fg-color);
+  background-color: var(--bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 0.5rem 1rem;
+  border: 3px solid var(--border-color);
+  border-radius: 1rem;
+  font-weight: 900;
+  transition:
+    background 0.2s,
+    transform 0.1s,
+    color 0.2s;
+  cursor: pointer;
+}
+
+.navGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.navLink {
+  color: var(--fg-color);
+  background-color: var(--bg-color);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.5rem;
+  border: 3px solid var(--border-color);
+  border-radius: 1rem;
+  font-weight: 900;
+  transition:
+    background 0.2s,
+    transform 0.1s,
+    color 0.2s;
+  cursor: pointer;
+}
+
+.navLink:hover {
+  color: var(--fg-hover);
+  background: var(--border-color);
+}
+
+.navButton {
+  background: var(--bg-color);
+}
+
+.navButton:hover {
+  color: var(--fg-hover);
+  background: var(--bg-color-color);
+}
+
+.navSelected {
+  background: var(--nav-selected);
+}
+
+/********************
+ *    User Area     *
+ *******************/
+.userArea {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.userButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--fg-color);
+  background: var(--btn-color);
+  padding: 0.5rem 1rem;
+  border: 3px solid var(--btn-border);
+  border-radius: 1rem;
+  font-weight: 900;
+  transition:
+    background 0.2s,
+    transform 0.1s;
+  cursor: pointer;
+}
+
+.userButton:hover {
+  background: var(--btn-hover);
+}
+
+/********************
+ *   Profile Info   *
+ *******************/
+.headerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 750px;
+}
+
+.infoCaption {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.infoCaptionSub {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.profileInfoEditable {
+  background: var(--bg-color);
+  border: 5px solid var(--border-color);
+  border-radius: 1rem;
+}
+
+.profilePic {
+  width: 6.5rem;
+  height: 6.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid var(--border-color);
+}
+
+/********************
+ *  Responsiveness  *
+ *******************/
+
+/* Hidden by default; shown on small screens */
+.mobileHeader {
+  display: none;
+}
+
+/* Small screens */
+@media (max-width: 1080px) {
+  .mobileHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 100%;
+  }
+
+  .mobileTaskbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .mobileNavBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 100%;
+    color: var(--fg-color);
+    background: var(--bg-color);
+    border: 3px solid var(--border-color);
+    border-radius: 1rem;
+    margin: 0.5rem 0;
+    padding: 0.5rem 1rem;
+    transition:
+      background 0.2s,
+      transform 0.1s;
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+
+  .desktopHeader {
+    display: none;
+  }
+
+  .nav {
+    flex-direction: column;
+    min-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .navButton {
+    font-weight: 200;
+  }
+
+  .profilePic {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+
+  .headerInfo {
+    flex-direction: column;
+    gap: 0.2rem;
+    margin: 0 auto;
+  }
+
+  .infoCaption {
+    font-size: 1.2rem;
+  }
+
+  .infoCaptionSub {
+    font-size: 1rem;
+  }
+
+  .userArea {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .burger {
+    color: var(--fg-color);
+    background: var(--btn-color);
+    border: 3px solid var(--btn-border);
+    font-weight: 900;
+    transition:
+      background 0.2s,
+      transform 0.1s;
+    cursor: pointer;
+    padding-top: 0.4rem;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .burger:hover {
+    background: var(--btn-hover);
+  }
+}
+
+/* Larger screens */
+@media (min-width: 1081px) {
+  .desktopHeader {
+    gap: 0 1.5rem;
+  }
+
+  .mobileHeader {
+    display: none;
+  }
+}
