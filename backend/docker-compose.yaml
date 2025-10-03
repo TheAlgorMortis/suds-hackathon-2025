@@ -1,0 +1,21 @@
+services:
+  db:
+    container_name: suds_hackathon_postgres # name of the docker container itself
+    image: postgres # specifies that we're using a postgres docker image
+    restart: always # if fail during run, it should restart
+    shm_size: 128mb # shared memory limit when using docker compose (not sure on this one)
+
+    # these are used when connecting to a particular db in the postgres image in the docker container
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=user
+      - POSTGRES_DB=backend_db # the database name that we will use
+    ports:
+      - '5432:5432' # maps our localhost:5432 to the container 5432 port
+
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      # note the volume is named <project>_db_data (so in our case, backend_db_data)
+
+volumes:
+  db_data:
