@@ -7,7 +7,10 @@
 }
 
 :root {
-  /* --bg-color: #09f; */
+  --maroon: #61223b;
+  --gold: #b79962;
+  --white: #ffffff;
+
   --bg-color: rgba(255, 255, 255, 0.8);
   --fg-color: #000000;
   --fg-hover: #000000;

@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import "./Bodies.css";
 import { useNavigate } from "react-router-dom";
 
-const navigate = useNavigate();
-
 type ShowPassword = "password" | "text";
 
 interface LoginProps {
   setUsername: React.Dispatch<React.SetStateAction<string>>;
 }
 
-  // local state
+export default function Login({ setUsername }: LoginProps) {
+  const navigate = useNavigate();
   const [editUsername, setEditUsername] = useState<string>("");
   const [editPassword, setEditPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<ShowPassword>("password");

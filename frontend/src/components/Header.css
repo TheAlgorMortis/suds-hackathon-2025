@@ -1,32 +1,36 @@
-/* Header */
 .header {
   color: var(--fg-color);
-  background-color: var(--bg-color);
-  border: 5px solid var(--border-color);
+  background-color: var(--maroon);
+  border: 5px solid var(--gold);
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 4rem;
-  width: 70%;
+  justify-content: space-around;
+  gap: 2rem 2rem;
+  width: 100%;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0.8rem 1.5rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 3px rgba(0, 0, 0, 0.5);
 }
-.desktopHeader {
-  display: flex;
-  align-items: center;
-}
+
 .titleSizer {
   flex: 1;
 }
+
 .title {
-  color: var(--border-color);
+  color: var(--gold);
+  font-size: 4rem;
   font-family: "Fredoka One", sans-serif;
 }
 
-.xCol {
-  color: var(--x-color);
+.bigNut {
+  color: var(--gold);
+  font-size: 6rem;
+  font-family: "Fredoka One", sans-serif;
+}
+
+.subtitle {
+  color: var(--white);
+  font-size: 1.3rem;
   font-family: "Fredoka One", sans-serif;
 }
 
@@ -35,15 +39,6 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-}
-
-.locationBlock {
-  display: flex;
-  flex-wrap: wrap;
-  background-color: var(--x-color);
-  color: #fff;
-  border: 3px solid var(--x-color);
-  border-radius: 1rem;
 }
 
 /********************
@@ -60,14 +55,14 @@
 /* Shared button look for nav states */
 .navButton,
 .navSelected {
-  color: var(--fg-color);
-  background-color: var(--bg-color);
+  color: var(--white);
+  background-color: var(--nav-color);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.2rem;
   padding: 0.5rem 1rem;
-  border: 3px solid var(--border-color);
+  border: 4px solid var(--gold);
   border-radius: 1rem;
   font-weight: 900;
   transition:
@@ -86,15 +81,15 @@
 }
 
 .navLink {
-  color: var(--fg-color);
-  background-color: var(--bg-color);
-  font-size: 0.9rem;
+  color: var(--white);
+  background-color: var(--maroon);
+  font-size: 1.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
   padding: 0.3rem 0.5rem;
-  border: 3px solid var(--border-color);
+  border: 4px solid var(--gold);
   border-radius: 1rem;
   font-weight: 900;
   transition:
@@ -104,9 +99,30 @@
   cursor: pointer;
 }
 
+.loginLink {
+  color: var(--white);
+  background-color: var(--gold);
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.5rem;
+  border: 4px solid var(--gold);
+  border-radius: 1rem;
+  font-weight: 900;
+  transition:
+    background 0.2s,
+    transform 0.1s,
+    color 0.2s;
+  cursor: pointer;
+}
+
+.loginLink:hover {
+  background: var(--maroon);
+}
 .navLink:hover {
-  color: var(--fg-hover);
-  background: var(--border-color);
+  background: var(--gold);
 }
 
 .navButton {
@@ -120,73 +136,6 @@
 
 .navSelected {
   background: var(--nav-selected);
-}
-
-/********************
- *    User Area     *
- *******************/
-.userArea {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.userButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  color: var(--fg-color);
-  background: var(--btn-color);
-  padding: 0.5rem 1rem;
-  border: 3px solid var(--btn-border);
-  border-radius: 1rem;
-  font-weight: 900;
-  transition:
-    background 0.2s,
-    transform 0.1s;
-  cursor: pointer;
-}
-
-.userButton:hover {
-  background: var(--btn-hover);
-}
-
-/********************
- *   Profile Info   *
- *******************/
-.headerInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  max-width: 750px;
-}
-
-.infoCaption {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.infoCaptionSub {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.profileInfoEditable {
-  background: var(--bg-color);
-  border: 5px solid var(--border-color);
-  border-radius: 1rem;
-}
-
-.profilePic {
-  width: 6.5rem;
-  height: 6.5rem;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 5px solid var(--border-color);
 }
 
 /********************

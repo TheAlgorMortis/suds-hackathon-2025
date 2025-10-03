@@ -1,6 +1,8 @@
 import "./Header.css";
 import "./Bodies.css";
+import { LuNut } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   username: string;
@@ -9,12 +11,14 @@ interface HeaderProps {
 export default function Header({ username, setUsername }: HeaderProps) {
   return (
     <header>
-      <div className="header desktopHeader">
-        <h1 className="xCol"> Welcome to </h1>
+      <div className="header">
+        <div className="bigNut">
+          <LuNut />
+        </div>
         <Title />
+        <NavArea />
         <LoginBlock username={username} setUsername={setUsername} />
       </div>
-      <NavArea />
     </header>
   );
 }
@@ -22,13 +26,18 @@ export default function Header({ username, setUsername }: HeaderProps) {
 function Title() {
   return (
     <div className="titleGroup">
-      <h1 className="title">Maroonit</h1>
-      <h2 className="xCol"> Home of the Squirrels </h2>
+      <h1 className="title">Maroonut</h1>
+      <h3 className="subtitle"> A Dylan Squared Project </h3>
     </div>
   );
 }
 
+/**
+ * Part of the header responsible for users logging in
+ */
 function LoginBlock({ username, setUsername }: HeaderProps) {
+  const navigate = useNavigate();
+
   const handleLogin = () => {
     navigate("/login", { replace: true });
   };
@@ -41,7 +50,7 @@ function LoginBlock({ username, setUsername }: HeaderProps) {
   if (username == "") {
     return (
       <div className="titleGroup">
-        <button className="userButton" onClick={handleLogin}>
+        <button className="loginLink" onClick={handleLogin}>
           Log In
         </button>
       </div>
@@ -50,7 +59,7 @@ function LoginBlock({ username, setUsername }: HeaderProps) {
     return (
       <div className="titleGroup">
         <p> Logged in as {username} </p>
-        <button className="userButton" onClick={handleLogout}>
+        <button className="loginLink" onClick={handleLogout}>
           Log Out
         </button>
       </div>
@@ -58,18 +67,18 @@ function LoginBlock({ username, setUsername }: HeaderProps) {
   }
 }
 
+/**
+ * Part of the header responsible for navigation
+ */
 function NavArea() {
   return (
     <div className="navGroup">
       <nav className="nav">
-        <NavLink to="/" end className="navButton">
+        <NavLink to="/" end className="navLink">
           Home
         </NavLink>
-        <NavLink to="/module" className="navButton">
+        <NavLink to="/module" className="navLink">
           Modules
-        </NavLink>
-        <NavLink to="/login" className="navButton">
-          Login
         </NavLink>
       </nav>
     </div>
