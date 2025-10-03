@@ -1,14 +1,13 @@
+from app.services.db_service import DbService
+
+
 class Service:
     """
     Grouping of all application services to inject into endpoints.
     """
 
     def __init__(self):
-        # self.agent: AgentService = AgentService(OPENAI_KEY)
-        #
-        # self.db: DbService = DbService()
-        # self.email: EmailService = EmailService()
-        self.db: str = "hi"
+        self.db: DbService = DbService()
 
     def stop(self):
-        pass
+        self.db.close()

@@ -14,8 +14,8 @@ services:
       - '5432:5432' # maps our localhost:5432 to the container 5432 port
 
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - hackathon_data:/var/lib/postgresql/data
       # note the volume is named <project>_db_data (so in our case, backend_db_data)
 
 volumes:
-  db_data:
+  hackathon_data:
