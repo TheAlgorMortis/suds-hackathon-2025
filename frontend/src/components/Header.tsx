@@ -77,7 +77,7 @@ function NavArea() {
         <NavLink to="/" end className="navLink">
           Home
         </NavLink>
-        <NavLink to="/module" className="navLink">
+        <NavLink to="/modules" className="navLink">
           Modules
         </NavLink>
       </nav>

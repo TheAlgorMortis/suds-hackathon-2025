@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import type { ModulePreview } from "../types.ts";
-import { getPreviews } from "../api/moduleApi.tsx";
+import type { ModulePreview } from "../types";
+import { getPreviews } from "../api/moduleApi";
+import { useState, useEffect, useMemo } from "react";
+import { FaSearch } from "react-icons/fa";
 
 interface ModulesProps {
   username: string;
@@ -15,10 +17,31 @@ interface ModulesProps {
  */
 export default function ModuleList({ username }: ModulesProps) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedIndices, setSelectedIndices] = useState([]);
+  const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
+  const [modulePreviews, setModulePreviews] = useState<ModulePreview[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  //list by their title and uses only selected indices
-  let modulePreviews = getPreviews();
+  useEffect(() => {
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const data = await getPreviews();
+        if (!cancelled) {
+          setModulePreviews(data);
+          setSelectedIndices(data.map((_, i) => i));
+        }
+      } catch (e) {
+        console.error("Failed to load previews:", e);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     const q = searchTerm.trim().toLowerCase();
@@ -30,7 +53,7 @@ export default function ModuleList({ username }: ModulesProps) {
             const title = (
               (m.code ?? "") +
               ": " +
-              (m.title ?? "")
+              (m.name ?? "")
             ).toLowerCase();
             if (title.includes(q)) acc.push(i);
             return acc;
@@ -110,7 +133,7 @@ interface ModulePreviewProps {
  */
 function ModulePreviewBlock({ preview, searchTerm }: ModulePreviewProps) {
   const navigate = useNavigate();
-  let title = preview.code + " : " + preview.title;
+  let title = preview.code + ": " + preview.name;
   const titleSplit = splitBySubstring(title, searchTerm);
 
   /* Navigate to individual modules */
@@ -125,10 +148,39 @@ function ModulePreviewBlock({ preview, searchTerm }: ModulePreviewProps) {
         <span className="searchHighlight">{titleSplit.totalSub}</span>
         {titleSplit.postTotal}
       </h2>
-      <button className="sectionButtonLeft" onClick={() => selectModule(code)}>
+      <button
+        className="outerButton"
+        onClick={() => selectModule(preview.code)}
+      >
         <h2>Find out more</h2>
       </button>
       <h2> rating: {preview.rating} </h2>
     </div>
   );
+}
+
+/**
+ * Splits a string by a substring so that the substring can be highlighted
+ *
+ * @param {String} total - the full string
+ * @param {String} totalSubstring - the substring to search by in total.
+ *
+ */
+function splitBySubstring(total: string, totalSubstring: string) {
+  if (totalSubstring === "") {
+    return { preTotal: "", totalSub: "", postTotal: total };
+  }
+
+  const hay = total.toLowerCase();
+  const needle = totalSubstring.toLowerCase();
+
+  const i = hay.indexOf(needle);
+  if (i === -1) return { preTotal: total, totalSub: "", postTotal: "" };
+
+  const j = i + needle.length;
+  return {
+    preTotal: total.slice(0, i),
+    totalSub: total.slice(i, j),
+    postTotal: total.slice(j),
+  };
 }
