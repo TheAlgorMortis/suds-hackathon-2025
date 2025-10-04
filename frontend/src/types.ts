@@ -17,6 +17,14 @@ export const ReqString: Record<ReqType, string> = {
   prereqPass: "Prerequisite pass",
 };
 
+export const StatusString: Record<ModuleStatus, string> = {
+  notRegistered: "Unregistered",
+  inProgress: "Module in progrees",
+  failed: "Failed",
+  passed: "Passed",
+  distinction: "Passed with distinction",
+};
+
 export type Req = {
   moduleId: string;
   code: string;
@@ -45,13 +53,30 @@ export type Module = {
   reqs: Req[];
 };
 
+export type ModuleInfo = {
+  code: string;
+  name: string;
+  status?: ModuleStatus;
+};
+
+export type UserReview = {
+  code: string;
+  name: string;
+  rating?: numner;
+};
+
 /***************
  * Users
  ***************/
+
 export type User = {
   username: string;
   name: string;
   email: string;
+  totalVotes: number;
+  takingModules: ModuleInfo[];
+  tutoringModules: ModuleInfo[];
+  reviews: UserReview[];
 };
 
 /**********
@@ -66,6 +91,17 @@ export type Review = {
   date: Date;
   votes: Number;
   userVote: VoteType;
+};
+
+/************
+ * Tutor List
+ ************/
+export type Tutor = {
+  username: string;
+  name: string;
+  email: string;
+  description: string;
+  hourlyRate: Number;
 };
 
 /*******

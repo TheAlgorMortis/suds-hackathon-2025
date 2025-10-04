@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getModuleDetails } from "../api/moduleApi";
 import ReviewList from "./ReviewList.tsx";
 import ModuleDescription from "./ModuleDescription.tsx";
+import TutorList from "./TutorList.tsx";
 import { getReviews } from "../api/moduleApi.ts";
 import type { Module } from "../types";
 
@@ -12,6 +13,7 @@ export default function ModuleDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [reviews, setReviews] = useState();
+  const [detail, setDetail] = useState("reviews");
 
   useEffect(() => {
     let active = true;
@@ -44,10 +46,41 @@ export default function ModuleDetails() {
   if (error) return <p>{error}</p>;
   if (!module) return <p>Module not found.</p>;
 
+  const isLoggedIn = localStorage.getItem("MRNTid") !== "";
+  if (!isLoggedIn) {
+    return (
+      <div className="sectionBlock">
+        <h2>
+          To check the module description, reviews and find tutors, please log
+          in.
+        </h2>
+      </div>
+    );
+  }
+
   return (
     <div>
       <ModuleDescription module={module} />
-      <ReviewList reviews={reviews} moduleId={module.moduleId} />
+      <div>
+        <button
+          onClick={() => {
+            setDetail("reviews");
+          }}
+        >
+          Reviews
+        </button>
+        <button
+          onClick={() => {
+            setDetail("tutors");
+          }}
+        >
+          Tutors
+        </button>
+        {detail === "reviews" && (
+          <ReviewList reviews={reviews} moduleId={module.moduleId} />
+        )}
+        {detail === "tutors" && <TutorList moduleId={module.moduleId} />}
+      </div>
     </div>
   );
 }

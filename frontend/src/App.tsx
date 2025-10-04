@@ -5,6 +5,7 @@ import Home from "./components/Home.tsx";
 import Login from "./components/Login.tsx";
 import ModuleDetails from "./components/ModuleDetails.tsx";
 import ModuleList from "./components/ModuleList.tsx";
+import UserProfile from "./components/UserProfile.tsx";
 import "./App.css";
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
               path="/modules/:code"
               element={<ModuleDetails username={username} />}
             />
+            <Route path="/users/:username" element={<UserProfile />} />
 
             {/* None found */}
             <Route

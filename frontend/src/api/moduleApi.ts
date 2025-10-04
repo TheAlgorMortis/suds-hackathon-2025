@@ -4,6 +4,7 @@ import type {
   Review,
   VoteType,
   ModuleStatus,
+  User,
 } from "../types";
 import axiosInstance from "./axiosInstance";
 
@@ -186,5 +187,38 @@ export async function deleteReview(userId: string, moduleId: string) {
     }
   } catch (err) {
     console.log("couldn't delete review review");
+  }
+}
+
+/**
+ * Get tutor List
+ */
+export async function getTutors(moduleId: string): Promise<Tutor[]> {
+  try {
+    const response = await axiosInstance.get(`/v1/tutors/${moduleId}`);
+
+    switch (response.status) {
+      // Success
+      case 200:
+        return response.data;
+    }
+  } catch {
+    console.log("Couldn't grab status");
+  }
+}
+
+/**
+ * Get user info
+ */
+export async function getUserInfo(username: string): Promise<User> {
+  try {
+    const response = await axiosInstance.get(`/v1/user/${username}`);
+    switch (response.status) {
+      // Success
+      case 200:
+        return response.data;
+    }
+  } catch {
+    console.log("Couldn't grab user info");
   }
 }

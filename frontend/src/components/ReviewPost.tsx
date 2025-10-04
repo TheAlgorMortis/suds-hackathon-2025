@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getModuleDetails } from "../api/moduleApi";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Voter from "./Voter.tsx";
 import Rater from "./Rater.tsx";
 import type { Review } from "../types";
@@ -21,6 +20,7 @@ export default function ReviewPost({
   setIsNewPost,
   moduleId,
 }: ReviewPostProps) {
+  const navigate = useNavigate();
   const [newPost, setNewPost] = useState(isNewPost);
   const [rating, setRating] = useState(review.rating);
   const [title, setTitle] = useState(review.title);
@@ -52,6 +52,10 @@ export default function ReviewPost({
     return;
   }
 
+  const navTo = (username) => {
+    navigate(`/users/${username}`, { replace: true });
+  };
+
   return (
     <div className="sectionBlock">
       <h2
@@ -67,7 +71,15 @@ export default function ReviewPost({
         {review.title}
       </h2>
       <h3>
-        by {review.username} on {review.date}
+        by{" "}
+        <button
+          onClick={() => {
+            navTo(review.username);
+          }}
+        >
+          {review.username}{" "}
+        </button>{" "}
+        on {review.date}
       </h3>
       <Rater
         initialRating={rating}
