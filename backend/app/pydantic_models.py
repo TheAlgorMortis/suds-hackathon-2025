@@ -2,6 +2,7 @@
 All Pydantic models, used for network facing parsing both ways
 """
 
+from datetime import datetime
 from typing import ClassVar
 from pydantic import (
     UUID4,
@@ -62,3 +63,20 @@ class LoginRequest(BaseModel):
     # either one
     username_email: str = Field(..., alias="usernameEmail")
     password: str
+
+
+class Review(BaseModel):
+    model_config: ClassVar[ConfigDict] = ConfigDict(populate_by_name=True)
+
+    review_id: UUID4 | None = Field(None, alias="reviewId")
+    user_id: UUID4 = Field(..., alias="userId")
+    module_id: UUID4 = Field(..., alias="moduleId")
+    title: str
+    text: str
+    # 0-10
+    rating: int
+    date: datetime | None = None
+
+    @field_serializer("module_id", "user_id", "review_id")
+    def uuid_to_string(self, uuid: UUID4) -> str:
+        return str(uuid)

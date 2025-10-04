@@ -3,8 +3,12 @@ from fastapi import Depends, FastAPI, HTTPException
 from pydantic import UUID4
 
 from app.handlers import handle_login
-from app.pydantic_models import LoginRequest
-from app.schema_translators import module_to_preview_schema, module_to_schema
+from app.pydantic_models import LoginRequest, Review
+from app.schema_translators import (
+    module_to_preview_schema,
+    module_to_schema,
+    review_to_schema,
+)
 from app.services.service import Service
 
 
@@ -30,12 +34,12 @@ def init_routes(app: FastAPI):
 
     # TODO: should allow query params for filtering
     @app.get("/api/v1/users")
-    def search_users(service: InjectedService):
+    async def search_users(service: InjectedService):
         # TODO: impl filtering
         return service.db.get_all_users()
 
     @app.get("/api/v1/previews")
-    def filtered_module_previews(service: InjectedService):
+    async def filtered_module_previews(service: InjectedService):
         """
         Module preview searching
         """
@@ -43,7 +47,7 @@ def init_routes(app: FastAPI):
         return [module_to_preview_schema(mod) for mod in service.db.get_all_modules()]
 
     @app.get("/api/v1/modules/{module_code}")
-    def get_module(module_code: str, service: InjectedService):
+    async def get_module(module_code: str, service: InjectedService):
         """
         Get single module using module code
         """
@@ -53,8 +57,25 @@ def init_routes(app: FastAPI):
         return module_to_schema(mod)
 
     @app.post("/api/v1/auth/login")
-    def login(request: LoginRequest, service: InjectedService):
+    async def login(request: LoginRequest, service: InjectedService):
         err: str | None = handle_login(service, request)
         if err is None:
             return {}  # pyright: ignore[reportUnknownVariableType]
         raise HTTPException(status_code=401, detail=err)
+
+    @app.get("/api/v1/reviews/{module_id}")
+    async def get_reviews(module_id: UUID4, service: InjectedService):
+        return [
+            review_to_schema(r) for r in service.db.get_module_by_id(module_id).reviews
+        ]
+
+    @app.post("/api/v1/reviews")
+    async def post_review(review: Review, service: InjectedService):
+        print(review)
+        service.db.insert_review(review)
+        return {}  # pyright: ignore[reportUnknownVariableType]
+
+    @app.patch("/api/v1/reviews")
+    async def update_review(review: Review, service: InjectedService):
+        service.db.update_review(review)
+        return {}  # pyright: ignore[reportUnknownVariableType]

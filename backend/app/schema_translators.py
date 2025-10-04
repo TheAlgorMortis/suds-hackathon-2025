@@ -5,8 +5,8 @@ SQLAlchemy -> Pydantic
 """
 
 from math import floor
-from app.pydantic_models import Module, ModulePreview, Requirement
-from app.db_models import User as DbUser, Module as DbModule
+from app.pydantic_models import Module, ModulePreview, Requirement, Review
+from app.db_models import Review as DbReview, User as DbUser, Module as DbModule
 
 
 def module_to_schema(module: DbModule) -> Module:
@@ -53,4 +53,16 @@ def module_to_requirement_schema(parent: DbModule, child: DbModule) -> Requireme
         type=list(
             filter(lambda x: x.child_id == child.module_id, parent.req_modules_link)
         )[0].requisite_type,
+    )
+
+
+def review_to_schema(review: DbReview) -> Review:
+    return Review(
+        reviewId=review.review_id,
+        userId=review.user_id,
+        moduleId=review.module_id,
+        title=review.title,
+        text=review.text,
+        rating=review.rating,
+        date=review.date,
     )

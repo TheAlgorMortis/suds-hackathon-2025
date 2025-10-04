@@ -1,7 +1,9 @@
+from datetime import datetime
 import uuid
-from sqlalchemy import create_engine, or_, select, text
+from sqlalchemy import create_engine, delete, insert, or_, select, text
 from sqlalchemy.orm import Session, sessionmaker
-from app.db_models import User, Module, Review
+from app.pydantic_models import Review
+from app.db_models import User, Module, Review as DbReview
 
 POSTGRES_DB_URL = "postgresql://user:password@localhost:5432/backend_db"
 
@@ -66,13 +68,35 @@ class DbService:
         return module.required_modules
 
     # ----- REVIEWS -----
-    def get_reviews_by_module_id(self, module_id: uuid.UUID) -> list[Review]:
-        module = self.session.scalar(
-            select(Module).where(Module.module_id == module_id)
+    def insert_review(self, review: Review):
+
+        _ = self.session.execute(
+            insert(DbReview).values(
+                user_id=review.user_id,
+                module_id=review.module_id,
+                title=review.title,
+                text=review.text,
+                rating=review.rating,
+                date=datetime.now(),
+            )
         )
-        if module is None:
-            raise ValueError(f"Module with id {module_id} not present")
-        return module.reviews
+        self.session.commit()
+
+    def update_review(self, review: Review):
+        existing_review = self.session.scalar(
+            select(DbReview).where(
+                DbReview.module_id == review.module_id,
+                DbReview.user_id == review.user_id,
+            )
+        )
+        if existing_review is None:
+            raise ValueError("Review does not exist")
+
+        existing_review.text = review.text
+        existing_review.title = review.title
+        existing_review.rating = review.rating
+        existing_review.date = datetime.now()
+        self.session.commit()
 
     # ---- OTHER -----
 
