@@ -36,19 +36,24 @@ class Requirement(BaseModel):
         return str(uuid)
 
 
-class Module(BaseModel):
+class ModulePreview(BaseModel):
     model_config: ClassVar[ConfigDict] = ConfigDict(populate_by_name=True)
     module_id: UUID4 = Field(..., alias="moduleId")
     code: str
     name: str
-    description: str
-    lecture_hours: int = Field(..., alias="lectureHours")
-    tut_hours: int = Field(..., alias="tutHours")
-    requirements: list[Requirement] = Field(..., alias="reqs")
+    rating: int
 
     @field_serializer("module_id")
     def uuid_to_string(self, uuid: UUID4) -> str:
         return str(uuid)
+
+
+class Module(ModulePreview):
+    model_config: ClassVar[ConfigDict] = ConfigDict(populate_by_name=True)
+    description: str
+    lecture_hours: int = Field(..., alias="lectureHours")
+    tut_hours: int = Field(..., alias="tutHours")
+    requirements: list[Requirement] = Field(..., alias="reqs")
 
 
 class LoginRequest(BaseModel):

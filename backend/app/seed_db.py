@@ -1,7 +1,6 @@
 from app.db_models import Module, Registration, User
 from app.services.db_service import DbService
 import json
-from sqlalchemy.orm import Session
 
 
 def load_sample_data(db: DbService, json_file: str = "sample_data.json"):
@@ -37,5 +36,6 @@ def load_sample_data(db: DbService, json_file: str = "sample_data.json"):
 
 if __name__ == "__main__":
     db = DbService()
+    db.clear_database()
     load_sample_data(db)
     db.close()

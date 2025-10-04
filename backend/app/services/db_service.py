@@ -55,6 +55,9 @@ class DbService:
             raise ValueError(f"Module with id {module_id} not present")
         return module
 
+    def get_module_by_code(self, module_code: str) -> Module | None:
+        return self.session.scalar(select(Module).where(Module.code == module_code))
+
     def get_required_modules(self, module_id: uuid.UUID) -> list[Module]:
         """
         List of all modules required by the module with given id
