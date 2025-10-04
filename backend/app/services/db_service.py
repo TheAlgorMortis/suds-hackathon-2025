@@ -149,6 +149,7 @@ class DbService:
                         DbVote.user_id == vote.user_id,
                     )
                 )
+                self.session.commit()
             else:
                 # update value
                 existing_vote.vote = vote.vote

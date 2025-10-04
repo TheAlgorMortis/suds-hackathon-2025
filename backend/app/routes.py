@@ -63,10 +63,11 @@ def init_routes(app: FastAPI):
             return resp
         raise HTTPException(status_code=401, detail=resp)
 
-    @app.get("/api/v1/reviews/{module_id}")
-    async def get_reviews(module_id: UUID4, service: InjectedService):
+    @app.get("/api/v1/reviews/{module_id}/{user_id}")
+    async def get_reviews(module_id: UUID4, user_id: UUID4, service: InjectedService):
         return [
-            review_to_schema(r) for r in service.db.get_module_by_id(module_id).reviews
+            review_to_schema(r, user_id)
+            for r in service.db.get_module_by_id(module_id).reviews
         ]
 
     @app.post("/api/v1/reviews")

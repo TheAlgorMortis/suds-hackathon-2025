@@ -5,6 +5,7 @@ SQLAlchemy -> Pydantic
 """
 
 from math import floor
+from uuid import UUID
 from app.pydantic_models import Module, ModulePreview, Requirement, CreateReview, Review
 from app.db_models import (
     Review as DbReview,
@@ -62,10 +63,10 @@ def module_to_requirement_schema(parent: DbModule, child: DbModule) -> Requireme
     )
 
 
-def review_to_schema(review: DbReview) -> Review:
+def review_to_schema(review: DbReview, user_id: UUID) -> Review:
     vote_list: list[Vote] = review.votes
     votes: int = 0
-    matches = list(filter(lambda x: x.user_id == review.user_id, review.votes))
+    matches = list(filter(lambda x: x.user_id == user_id, review.votes))
     user_vote = None if len(matches) == 0 else matches[0].vote
 
     for vote in vote_list:
