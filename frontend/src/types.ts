@@ -3,6 +3,7 @@
  ***************/
 
 export type ReqType = "prereq" | "coreq" | "prereqPass";
+export type VoteType = "up" | "down" | null;
 
 export const ReqString: Record<ReqType, string> = {
   prereq: "Prerequisite",
@@ -13,7 +14,7 @@ export const ReqString: Record<ReqType, string> = {
 export type Req = {
   moduleId: string;
   code: string;
-  type: reqType;
+  type: ReqType;
 };
 
 /***************
@@ -38,11 +39,33 @@ export type Module = {
   reqs: Req[];
 };
 
+/***************
+ * Users
+ ***************/
+export type User = {
+  username: string;
+  name: string;
+  email: string;
+};
+
+/**********
+ * Review
+ *********/
+export type Review = {
+  reviewId: string;
+  username: string;
+  title: string;
+  text: string;
+  rating: Number;
+  date: Date;
+  votes: Number;
+  userVote: VoteType;
+};
+
 /*******
  * API
  ********/
 
 export type LoginResponse = {
-  success: boolean;
-  message?: string;
+  userId: string;
 };

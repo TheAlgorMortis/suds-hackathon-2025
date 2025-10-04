@@ -41,7 +41,9 @@ export async function authLogin(
     switch (response.status) {
       // Success
       case 200:
+        localStorage.setItem("MRNTid", response.data.userId);
         return { success: true };
+
       // Authorization failed
       default:
         return {
