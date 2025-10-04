@@ -4,6 +4,12 @@
 
 export type ReqType = "prereq" | "coreq" | "prereqPass";
 export type VoteType = "up" | "down" | null;
+export type ModuleStatus =
+  | "notRegistered"
+  | "inProgress"
+  | "failed"
+  | "passed"
+  | "distinction";
 
 export const ReqString: Record<ReqType, string> = {
   prereq: "Prerequisite",

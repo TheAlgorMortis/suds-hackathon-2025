@@ -44,6 +44,7 @@ function LoginBlock({ username, setUsername }: HeaderProps) {
 
   const handleLogout = () => {
     setUsername("");
+    localStorage.setItem("MRNTid", "");
     navigate("/", { replace: true });
   };
 

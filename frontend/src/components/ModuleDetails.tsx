@@ -47,7 +47,7 @@ export default function ModuleDetails() {
   return (
     <div>
       <ModuleDescription module={module} />
-      <ReviewList reviews={reviews} />
+      <ReviewList reviews={reviews} moduleId={module.moduleId} />
     </div>
   );
 }

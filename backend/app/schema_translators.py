@@ -99,5 +99,5 @@ def tutor_to_schema(tutor: DbTutor) -> Tutor:
         email=tutor.user.email,
         description=tutor.description,
         hourlyRate=tutor.hourly_rate,
-        module
+        modules=[module_to_preview_schema(t) for t in tutor.modules],
     )

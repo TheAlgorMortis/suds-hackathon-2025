@@ -2,6 +2,7 @@ import type { Module, Req } from "../types";
 import { ReqString } from "../types";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Rater from "./Rater.tsx";
 import "./Bodies.css";
 
 interface ModuleDescriptionProps {
@@ -17,7 +18,15 @@ export default function ModuleDescription({ module }: ModuleDescriptionProps) {
       <h2>
         {module.code}: {module.name}
       </h2>
-      <h3> rating: {module.rating} </h3>
+      <h3>
+        {" "}
+        rating:{" "}
+        <Rater
+          initialRating={module.rating}
+          setFunction={(c) => {}}
+          editable={false}
+        />{" "}
+      </h3>
       <h3> Description </h3>
       <p> {module.description} </p>
       <h3> Requisites </h3>
