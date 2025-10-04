@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { ModulePreview } from "../types.ts";
+import type { ModulePreview } from "../types.ts";
+import { getPreviews } from "../api/moduleApi.tsx";
 
 interface ModulesProps {
   username: string;
@@ -14,11 +15,10 @@ interface ModulesProps {
  */
 export default function ModuleList({ username }: ModulesProps) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedIndices, setSelectedIndices] = useState([])
+  const [selectedIndices, setSelectedIndices] = useState([]);
 
   //list by their title and uses only selected indices
-  //TODO: actually get the module previews from the server
-  let modulePreviews[] = getModulePreviews()
+  let modulePreviews = getPreviews();
 
   useEffect(() => {
     const q = searchTerm.trim().toLowerCase();
@@ -27,7 +27,11 @@ export default function ModuleList({ username }: ModulesProps) {
       q === ""
         ? modulePreviews.map((_, i) => i)
         : modulePreviews.reduce<number[]>((acc, m, i) => {
-            const title = ((m.code ?? "") + ": " + (m.title ?? "")).toLowerCase();
+            const title = (
+              (m.code ?? "") +
+              ": " +
+              (m.title ?? "")
+            ).toLowerCase();
             if (title.includes(q)) acc.push(i);
             return acc;
           }, []);
@@ -35,13 +39,13 @@ export default function ModuleList({ username }: ModulesProps) {
     setSelectedIndices(next);
   }, [searchTerm, modulePreviews]);
 
-
   // Map out the module previews to be displayed
   const visiblePreviews = useMemo(
-    () => selectedIndices
-            .map((i) => modulePreviews[i])
-            .filter((m): m is ModulePreview => Boolean(m)),
-    [selectedIndices, modulePreviews]
+    () =>
+      selectedIndices
+        .map((i) => modulePreviews[i])
+        .filter((m): m is ModulePreview => Boolean(m)),
+    [selectedIndices, modulePreviews],
   );
 
   return (
@@ -49,10 +53,9 @@ export default function ModuleList({ username }: ModulesProps) {
       <h2 className="sectionHeading">Modules</h2>
       <ModuleSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-      {visiblePreviews.length === 0
-      ? (
-        <p>No modules match.</p>)
-      : (
+      {visiblePreviews.length === 0 ? (
+        <p>No modules match.</p>
+      ) : (
         visiblePreviews.map((m) => (
           <ModulePreviewBlock
             key={m.code ?? m.title}
@@ -78,7 +81,7 @@ interface ModuleSearchProps {
 /*
  * React component used to search for Modules
  */
-function ModuleSearch({ searchTerm, setSearchTerm }:ModuleSearchProps) {
+function ModuleSearch({ searchTerm, setSearchTerm }: ModuleSearchProps) {
   return (
     <div className="searchBarGroup">
       <h3>Search Module Codes / Names</h3>
@@ -117,14 +120,15 @@ function ModulePreviewBlock({ preview, searchTerm }: ModulePreviewProps) {
 
   return (
     <div className="sectionBlock">
-      <h1>
+      <h2>
         {titleSplit.preTotal}
         <span className="searchHighlight">{titleSplit.totalSub}</span>
         {titleSplit.postTotal}
-      </h1>
+      </h2>
       <button className="sectionButtonLeft" onClick={() => selectModule(code)}>
         <h2>Find out more</h2>
       </button>
+      <h2> rating: {preview.rating} </h2>
     </div>
   );
 }

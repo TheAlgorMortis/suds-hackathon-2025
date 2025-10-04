@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { authLogin } from "../api/userApi.tsx";
+import type { LoginResponse } from "../types.ts";
 import "./Bodies.css";
 import { useNavigate } from "react-router-dom";
 
@@ -18,30 +20,23 @@ export default function Login({ setUsername }: LoginProps) {
   /**
    * Called when the login button is clicked
    */
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setError("");
     const username = (editUsername ?? "").trim();
-
-    // TODO: Wire up to axios
 
     if (username === "") {
       setError("Please enter a valid username");
       return;
     }
 
-    // Api call to server to check if the user exists
-    if (userExists(username)) {
-      setError("Account with this username does not exist.");
-      return;
-    }
+    let loginResponse: LoginResponse = await authLogin(username, editPassword);
 
-    // Check the password
-    if (editPassword === globals.getPassword(username)) {
+    if (loginResponse.success) {
       // Log in and navigate to home
       setUsername(username);
       navigate("/", { replace: true });
     } else {
-      setError("Password is incorrect for this username.");
+      setError(loginResponse.message);
     }
   };
 

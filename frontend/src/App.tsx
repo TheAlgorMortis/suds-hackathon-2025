@@ -3,6 +3,9 @@ import { useState } from "react";
 import Header from "./components/Header.tsx";
 import Home from "./components/Home.tsx";
 import Login from "./components/Login.tsx";
+import ModuleList from "./components/ModuleList.tsx";
+/* import ModuleDetails from "./components/ModuleDetails.tsx"; */
+/* import ModuleList from "./components/ModuleList.tsx"; */
 import "./App.css";
 
 function App() {
@@ -27,12 +30,14 @@ function App() {
             {/* Modules */}
             <Route
               path="/modules"
-              element={<ModulesList username={username} />}
+              element={<ModuleList username={username} />}
             />
+            {/*
             <Route
               path="/modules/:code"
               element={<ModuleDetails username={username} />}
             />
+            */}
 
             {/* None found */}
             <Route

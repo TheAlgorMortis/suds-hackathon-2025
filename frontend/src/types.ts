@@ -37,3 +37,12 @@ export type Module = {
   tutHours: Number;
   reqs: Req[];
 };
+
+/*******
+ * API
+ ********/
+
+export type LoginResponse = {
+  success: boolean;
+  message?: string;
+};
