@@ -1,5 +1,5 @@
 /***************
- * Requisities
+ * Requisites
  ***************/
 
 export type ReqType = "prereq" | "coreq" | "prereqPass";
@@ -13,8 +13,7 @@ export const ReqString: Record<ReqType, string> = {
 export type Req = {
   moduleId: string;
   code: string;
-  name: string;
-  type: "prereq" | "coreq" | "prereqPass";
+  type: reqType;
 };
 
 /***************

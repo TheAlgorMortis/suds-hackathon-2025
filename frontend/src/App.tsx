@@ -23,6 +23,17 @@ function App() {
               path="/login"
               element={<Login setUsername={setUsername} />}
             />
+
+            {/* Modules */}
+            <Route
+              path="/modules"
+              element={<ModulesList username={username} />}
+            />
+            <Route
+              path="/modules/:code"
+              element={<ModuleDetails username={username} />}
+            />
+
             {/* None found */}
             <Route
               path="*"
