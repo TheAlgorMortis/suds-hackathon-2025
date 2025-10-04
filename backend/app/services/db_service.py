@@ -2,8 +2,8 @@ from datetime import datetime
 import uuid
 from sqlalchemy import create_engine, delete, insert, or_, select, text
 from sqlalchemy.orm import Session, sessionmaker
-from app.pydantic_models import Review
-from app.db_models import User, Module, Review as DbReview
+from app.pydantic_models import CreateReview, Vote
+from app.db_models import User, Module, Review as DbReview, Vote as DbVote, VoteEnum
 
 POSTGRES_DB_URL = "postgresql://user:password@localhost:5432/backend_db"
 
@@ -68,7 +68,7 @@ class DbService:
         return module.required_modules
 
     # ----- REVIEWS -----
-    def insert_review(self, review: Review):
+    def insert_review(self, review: CreateReview):
 
         _ = self.session.execute(
             insert(DbReview).values(
@@ -82,7 +82,7 @@ class DbService:
         )
         self.session.commit()
 
-    def update_review(self, review: Review):
+    def update_review(self, review: CreateReview):
         existing_review = self.session.scalar(
             select(DbReview).where(
                 DbReview.module_id == review.module_id,
@@ -97,6 +97,43 @@ class DbService:
         existing_review.rating = review.rating
         existing_review.date = datetime.now()
         self.session.commit()
+
+    # ---- VOTES -----
+    def set_vote(self, vote: Vote):
+        """
+        Update or insert a vote from a user for a review
+        """
+        existing_vote = self.session.scalar(
+            select(DbVote).where(
+                DbVote.user_id == vote.user_id, DbVote.review_id == vote.review_id
+            )
+        )
+        if existing_vote is None:
+            # new post
+
+            if vote.vote is None:
+                # this should never happen becaus you can't vote None without having a prior vote
+                return
+            # insert the appropriate new vote
+            _ = self.session.execute(
+                insert(DbVote).values(
+                    vote=vote.vote, user_id=vote.user_id, review_id=vote.review_id
+                )
+            )
+            self.session.commit()
+        else:  # existing post, update
+            if vote.vote is None:
+                # want to delete
+                _ = self.session.execute(
+                    delete(DbVote).where(
+                        DbVote.review_id == vote.review_id,
+                        DbVote.user_id == vote.user_id,
+                    )
+                )
+            else:
+                # update value
+                existing_vote.vote = vote.vote
+                self.session.commit()
 
     # ---- OTHER -----
 

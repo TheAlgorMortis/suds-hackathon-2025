@@ -13,7 +13,7 @@ from pydantic import (
     model_validator,
 )
 
-from app.db_models import RequisiteEnum
+from app.db_models import RequisiteEnum, VoteEnum
 
 
 # class User(BaseModel):
@@ -65,18 +65,58 @@ class LoginRequest(BaseModel):
     password: str
 
 
-class Review(BaseModel):
+class LoginResponse(BaseModel):
+    model_config: ClassVar[ConfigDict] = ConfigDict(populate_by_name=True)
+    user_id: UUID4 = Field(..., alias="userId")
+
+    @field_serializer("user_id")
+    def uuid_to_string(self, uuid: UUID4) -> str:
+        return str(uuid)
+
+
+class CreateReview(BaseModel):
     model_config: ClassVar[ConfigDict] = ConfigDict(populate_by_name=True)
 
-    review_id: UUID4 | None = Field(None, alias="reviewId")
     user_id: UUID4 = Field(..., alias="userId")
     module_id: UUID4 = Field(..., alias="moduleId")
     title: str
     text: str
     # 0-10
     rating: int
-    date: datetime | None = None
 
-    @field_serializer("module_id", "user_id", "review_id")
+    @field_serializer("module_id", "user_id")
     def uuid_to_string(self, uuid: UUID4) -> str:
         return str(uuid)
+
+
+class Review(BaseModel):
+    """
+    Review as seen on frontend
+    """
+
+    model_config: ClassVar[ConfigDict] = ConfigDict(populate_by_name=True)
+
+    review_id: UUID4 = Field(..., alias="reviewId")
+    username: str
+    title: str
+    text: str
+    rating: int
+    date: datetime
+    # reddit style
+    votes: int
+    user_vote: VoteEnum | None = Field(None, alias="userVote")
+
+    @field_serializer("review_id")
+    def uuid_to_string(self, uuid: UUID4) -> str:
+        return str(uuid)
+
+
+class Vote(BaseModel):
+    """
+    Used for creating votes
+    """
+
+    model_config: ClassVar[ConfigDict] = ConfigDict(populate_by_name=True)
+    review_id: UUID4 = Field(..., alias="reviewId")
+    user_id: UUID4 = Field(..., alias="userId")
+    vote: VoteEnum | None = None

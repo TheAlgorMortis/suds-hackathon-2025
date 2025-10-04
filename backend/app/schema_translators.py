@@ -5,8 +5,14 @@ SQLAlchemy -> Pydantic
 """
 
 from math import floor
-from app.pydantic_models import Module, ModulePreview, Requirement, Review
-from app.db_models import Review as DbReview, User as DbUser, Module as DbModule
+from app.pydantic_models import Module, ModulePreview, Requirement, CreateReview, Review
+from app.db_models import (
+    Review as DbReview,
+    User as DbUser,
+    Module as DbModule,
+    Vote,
+    VoteEnum,
+)
 
 
 def module_to_schema(module: DbModule) -> Module:
@@ -57,12 +63,18 @@ def module_to_requirement_schema(parent: DbModule, child: DbModule) -> Requireme
 
 
 def review_to_schema(review: DbReview) -> Review:
+    vote_list: list[Vote] = review.votes
+    votes: int = 0
+
+    for vote in vote_list:
+        votes += 1 if vote.vote == VoteEnum.UP else -1
+
     return Review(
         reviewId=review.review_id,
-        userId=review.user_id,
-        moduleId=review.module_id,
+        username=review.user.username,
         title=review.title,
         text=review.text,
         rating=review.rating,
         date=review.date,
+        votes=votes,
     )

@@ -3,7 +3,7 @@ from fastapi import Depends, FastAPI, HTTPException
 from pydantic import UUID4
 
 from app.handlers import handle_login
-from app.pydantic_models import LoginRequest, Review
+from app.pydantic_models import LoginRequest, CreateReview, LoginResponse, Vote
 from app.schema_translators import (
     module_to_preview_schema,
     module_to_schema,
@@ -58,10 +58,10 @@ def init_routes(app: FastAPI):
 
     @app.post("/api/v1/auth/login")
     async def login(request: LoginRequest, service: InjectedService):
-        err: str | None = handle_login(service, request)
-        if err is None:
-            return {}  # pyright: ignore[reportUnknownVariableType]
-        raise HTTPException(status_code=401, detail=err)
+        resp: str | LoginResponse = handle_login(service, request)
+        if type(resp) is LoginResponse:
+            return resp
+        raise HTTPException(status_code=401, detail=resp)
 
     @app.get("/api/v1/reviews/{module_id}")
     async def get_reviews(module_id: UUID4, service: InjectedService):
@@ -70,12 +70,17 @@ def init_routes(app: FastAPI):
         ]
 
     @app.post("/api/v1/reviews")
-    async def post_review(review: Review, service: InjectedService):
+    async def post_review(review: CreateReview, service: InjectedService):
         print(review)
         service.db.insert_review(review)
         return {}  # pyright: ignore[reportUnknownVariableType]
 
     @app.patch("/api/v1/reviews")
-    async def update_review(review: Review, service: InjectedService):
+    async def update_review(review: CreateReview, service: InjectedService):
         service.db.update_review(review)
+        return {}  # pyright: ignore[reportUnknownVariableType]
+
+    @app.post("/api/v1/votes/")
+    async def get_user_vote(vote: Vote, service: InjectedService):
+        service.db.set_vote(vote)
         return {}  # pyright: ignore[reportUnknownVariableType]
