@@ -191,7 +191,7 @@ class Requisite(Base):
     # magical relationship linking
     # module that needs the req
     parent: Mapped[Module] = relationship(
-        "Module", foreign_keys=[parent_id], back_populates="required_modules_link"
+        "Module", foreign_keys=[parent_id], back_populates="req_modules_link"
     )
     # module that is the req
     child: Mapped[Module] = relationship(

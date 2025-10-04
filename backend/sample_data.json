@@ -1,0 +1,54 @@
+{
+  "users": [
+    {
+      "username": "alice1",
+      "name": "Alice",
+      "email": "alice@example.com",
+      "password": "pass1"
+    },
+    {
+      "username": "bob0",
+      "name": "Bob",
+      "email": "bob@example.com",
+      "password": "pass1"
+    }
+  ],
+  "modules": [
+    {
+      "code": "CS101",
+      "name": "Intro to Computer Science",
+      "description": "Introductory course to CS",
+      "lecture_hours": 3,
+      "tut_hours": 2
+
+    },
+    {
+      "code": "MATH201",
+      "name": "Discrete Mathematics",
+      "description": "Learn about set logic",
+      "lecture_hours": 3,
+      "tut_hours": 3
+    },
+    {
+      "code": "CS202",
+      "name": "Data Structures",
+      "description": "Do a braille project",
+      "lecture_hours": 2,
+      "tut_hours": 3
+    },
+    {
+      "code": "CS301",
+      "name": "Algorithms",
+      "description": "Learn advanced algorithms in computer science",
+      "lecture_hours": 5,
+      "tut_hours": 1
+    }
+  ],
+  "registrations": [
+    { "user": "Alice", "module": "CS101", "status": "inProgress"},
+    { "user": "Alice", "module": "MATH201", "status": "passed" },
+    { "user": "Bob", "module": "CS101", "status": "inProgress" },
+    { "user": "Bob", "module": "CS202", "status": "failed" },
+    { "user": "Bob", "module": "CS301", "status": "distinction" }
+  ]
+}

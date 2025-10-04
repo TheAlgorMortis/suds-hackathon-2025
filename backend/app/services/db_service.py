@@ -1,7 +1,7 @@
 import uuid
 from sqlalchemy import create_engine, select, text
 from sqlalchemy.orm import Session, sessionmaker
-from app.db_models import User as DbUser, Module as DbModule
+from app.db_models import User, Module, Review
 
 POSTGRES_DB_URL = "postgresql://user:password@localhost:5432/backend_db"
 
@@ -17,18 +17,51 @@ class DbService:
         self.session: Session = SessionLocal()
 
     # ----- USERS -----
-    def get_all_users(self) -> list[DbUser]:
-        return list(self.session.scalars(select(DbUser)))
+    def get_all_users(self) -> list[User]:
+        return list(self.session.scalars(select(User)))
 
-    def get_user_by_id(self, user_id: uuid.UUID) -> DbUser:
-        user = self.session.scalar(select(DbUser).where(DbUser.user_id == user_id))
+    def get_user_by_id(self, user_id: uuid.UUID) -> User:
+        user = self.session.scalar(select(User).where(User.user_id == user_id))
         if user is None:
             raise ValueError(f"User with id {user_id} not present")
         return user
 
+    def get_user_modules(self, user_id: uuid.UUID) -> list[Module]:
+        """
+        Get all module objects for a user with provided id
+        """
+        user = self.get_user_by_id(user_id)
+        return [reg.module for reg in user.registrations]
+
     # ---- MODULES ----
-    def get_all_modules(self) -> list[DbModule]:
-        return list(self.session.scalars(select(DbModule)))
+    def get_all_modules(self) -> list[Module]:
+        return list(self.session.scalars(select(Module)))
+
+    def get_module_by_id(self, module_id: uuid.UUID) -> Module:
+        module = self.session.scalar(
+            select(Module).where(Module.module_id == module_id)
+        )
+        if module is None:
+            raise ValueError(f"Module with id {module_id} not present")
+        return module
+
+    def get_required_modules(self, module_id: uuid.UUID) -> list[Module]:
+        """
+        List of all modules required by the module with given id
+        """
+        module = self.get_module_by_id(module_id)
+        return module.required_modules
+
+    # ----- REVIEWS -----
+    def get_reviews_by_module_id(self, module_id: uuid.UUID) -> list[Review]:
+        module = self.session.scalar(
+            select(Module).where(Module.module_id == module_id)
+        )
+        if module is None:
+            raise ValueError(f"Module with id {module_id} not present")
+        return module.reviews
+
+    # ---- OTHER -----
 
     def clear_database(self):
         _ = self.session.execute(

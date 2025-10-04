@@ -1,6 +1,7 @@
 from typing import Annotated
 from fastapi import Depends, FastAPI
 
+from app.schema_translators import module_to_schema
 from app.services.service import Service
 
 
@@ -24,6 +25,13 @@ def init_routes(app: FastAPI):
     Register endpoints used in the app
     """
 
-    @app.get("/hello")
-    def hello(service: InjectedService):
-        return {"hello": "world"}
+    # TODO: should allow query params for filtering
+    @app.get("/api/v1/users/search")
+    def search_users(service: InjectedService):
+        # TODO: impl filtering
+        return service.db.get_all_users()
+
+    @app.get("/api/v1/modules/search")
+    def search_modules(service: InjectedService):
+        # TODO: impl filtering
+        return [module_to_schema(mod) for mod in service.db.get_all_modules()]
