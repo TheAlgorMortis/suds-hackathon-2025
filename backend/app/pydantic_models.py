@@ -10,10 +10,9 @@ from pydantic import (
     ConfigDict,
     Field,
     field_serializer,
-    model_validator,
 )
 
-from app.db_models import RequisiteEnum, VoteEnum
+from app.db_models import RequisiteEnum, Status, VoteEnum
 
 
 # class User(BaseModel):
@@ -132,6 +131,31 @@ class Tutor(BaseModel):
     hourly_rate: int = Field(..., alias="hourlyRate")
 
 
-class TutorWithModules(Tutor):
+class ModuleInfo(BaseModel):
+    """
+    Module info for a particular user
+    """
+
     model_config: ClassVar[ConfigDict] = ConfigDict(populate_by_name=True)
-    modules: list[ModulePreview]
+    name: str
+    code: str
+    status: Status | None = None
+
+
+class UserReview(BaseModel):
+    model_config: ClassVar[ConfigDict] = ConfigDict(populate_by_name=True)
+    name: str
+    code: str
+    rating: int
+
+
+class User(BaseModel):
+    model_config: ClassVar[ConfigDict] = ConfigDict(populate_by_name=True)
+
+    username: str
+    name: str
+    email: str
+    total_votes: int = Field(..., alias="totalVotes")
+    taking_modules: list[ModuleInfo] = Field(..., alias="takingModules")
+    tutoring_modules: list[ModuleInfo] = Field(..., alias="tutoringModules")
+    reviews: list[UserReview]

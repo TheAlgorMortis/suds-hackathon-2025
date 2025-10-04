@@ -10,10 +10,8 @@ from app.pydantic_models import (
     Module,
     ModulePreview,
     Requirement,
-    CreateReview,
     Review,
     Tutor,
-    TutorWithModules,
 )
 from app.db_models import (
     Review as DbReview,

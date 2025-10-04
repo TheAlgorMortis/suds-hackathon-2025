@@ -2,7 +2,11 @@ from typing import Annotated
 from fastapi import Depends, FastAPI, HTTPException
 from pydantic import UUID4
 
-from app.handlers import handle_login, handle_modules_for_tutor
+from app.handlers import (
+    handle_get_all_user_info,
+    handle_login,
+    handle_modules_for_tutor,
+)
 from app.pydantic_models import LoginRequest, CreateReview, LoginResponse, Vote
 from app.schema_translators import (
     module_to_preview_schema,
@@ -38,6 +42,10 @@ def init_routes(app: FastAPI):
     async def search_users(service: InjectedService):
         # TODO: impl filtering
         return service.db.get_all_users()
+
+    @app.get("/api/v1/user/{username}")
+    async def get_user_info(username: str, service: InjectedService):
+        return handle_get_all_user_info(username, service)
 
     @app.get("/api/v1/previews")
     async def filtered_module_previews(service: InjectedService):
