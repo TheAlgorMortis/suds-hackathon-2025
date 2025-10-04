@@ -50,7 +50,7 @@ export default function Login({ setUsername }: LoginProps) {
 
   return (
     <>
-      <h1 className="sectionHeading">Login</h1>
+      <h2 className="sectionHeading">Login</h2>
 
       <div className="sectionBlock">
         <h3>Username</h3>
