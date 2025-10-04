@@ -130,4 +130,8 @@ class Tutor(BaseModel):
     email: str
     description: str
     hourly_rate: int = Field(..., alias="hourlyRate")
+
+
+class TutorWithModules(Tutor):
+    model_config: ClassVar[ConfigDict] = ConfigDict(populate_by_name=True)
     modules: list[ModulePreview]

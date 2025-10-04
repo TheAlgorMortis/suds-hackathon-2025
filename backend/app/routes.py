@@ -2,7 +2,7 @@ from typing import Annotated
 from fastapi import Depends, FastAPI, HTTPException
 from pydantic import UUID4
 
-from app.handlers import handle_login
+from app.handlers import handle_login, handle_modules_for_tutor
 from app.pydantic_models import LoginRequest, CreateReview, LoginResponse, Vote
 from app.schema_translators import (
     module_to_preview_schema,

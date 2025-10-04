@@ -180,7 +180,7 @@ class DbService:
         return mod.tutors
 
     def get_tutor_by_id(self, tutor_id: uuid.UUID) -> Tutor | None:
-        return self.session.scalar(select(Tutor).where(Tutor.user_id == tutor_id))
+        return self.session.scalar(select(Tutor).where(Tutor.tutor_id == tutor_id))
 
     def close(self):
         """

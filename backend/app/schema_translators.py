@@ -13,6 +13,7 @@ from app.pydantic_models import (
     CreateReview,
     Review,
     Tutor,
+    TutorWithModules,
 )
 from app.db_models import (
     Review as DbReview,
@@ -92,12 +93,24 @@ def review_to_schema(review: DbReview, user_id: UUID) -> Review:
     )
 
 
-def tutor_to_schema(tutor: DbTutor) -> Tutor:
-    return Tutor(
-        username=tutor.user.username,
-        name=tutor.user.name,
-        email=tutor.user.email,
-        description=tutor.description,
-        hourlyRate=tutor.hourly_rate,
-        modules=[module_to_preview_schema(t) for t in tutor.modules],
+def tutor_to_schema(
+    tutor: DbTutor,  # , with_modules: bool = False
+) -> Tutor:  # | TutorWithModules:
+    return (
+        Tutor(
+            username=tutor.user.username,
+            name=tutor.user.name,
+            email=tutor.user.email,
+            description=tutor.description,
+            hourlyRate=tutor.hourly_rate,
+        )
+        # if not with_modules
+        # else TutorWithModules(
+        #    username=tutor.user.username,
+        #    name=tutor.user.name,
+        #    email=tutor.user.email,
+        #    description=tutor.description,
+        #    hourlyRate=tutor.hourly_rate,
+        #    modules=[module_to_preview_schema(t) for t in tutor.modules],
+        # )
     )
