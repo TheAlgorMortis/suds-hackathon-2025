@@ -18,10 +18,10 @@ export default function VoterPost({
   totalVotes,
 }: VoterProps) {
   const [myVote, setMyVote] = useState(myInitialVote);
-  console.log("This is my vote: " + myVote);
   const [curVotes, setCurVotes] = useState(totalVotes);
   const userId = localStorage.getItem("MRNTid");
 
+  /* Cast a upvote */
   const upVote = () => {
     if (myVote === "up") {
       setCurVotes(curVotes - 1);
@@ -38,6 +38,7 @@ export default function VoterPost({
     }
   };
 
+  /* Cast a downvote */
   const downVote = () => {
     if (myVote === "down") {
       setCurVotes(curVotes + 1);

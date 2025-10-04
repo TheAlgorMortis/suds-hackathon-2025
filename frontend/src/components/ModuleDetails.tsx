@@ -24,7 +24,10 @@ export default function ModuleDetails() {
       try {
         const data = await getModuleDetails(code);
         if (active) setModule(data ?? null);
-        const revs = await getReviews(data?.moduleId);
+        const revs = await getReviews(
+          data?.moduleId,
+          localStorage.getItem("MRNTid"),
+        );
         setReviews(revs);
       } catch (e: any) {
         if (active) setError(e?.message ?? "Failed to fetch module.");

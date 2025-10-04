@@ -44,9 +44,11 @@ export async function getModuleDetails(code: string): Promise<Module[]> {
 /**
  * Get all reviews
  */
-export async function getReviews(moduleId: string): Promise<Review[]> {
+export async function getReviews(moduleId: string, userId): Promise<Review[]> {
   try {
-    const response = await axiosInstance.get(`/v1/reviews/${moduleId}`);
+    const response = await axiosInstance.get(
+      `/v1/reviews/${moduleId}/${userId}`,
+    );
     switch (response.status) {
       // Success
       case 200:
