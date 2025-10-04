@@ -68,7 +68,8 @@
   display: flex;
   gap: 0.5rem;
   text-align: center;
-  color: var(--fg-color);
+  font-size: 1.8rem;
+  color: var(--maroon);
   border: 3px solid var(--border-color);
   padding-left: 1rem;
   margin-top: 0.5rem;
