@@ -10,11 +10,11 @@
   --maroon: #61223b;
   --gold: #b79962;
   --white: #ffffff;
+  --border-color: #b79962;
 
   --bg-color: rgba(255, 255, 255, 0.8);
   --fg-color: #000000;
   --fg-hover: #000000;
-  --border-color: #93a923;
   --x-color: #c10f33;
 
   --btn-border: #880088;
@@ -33,7 +33,7 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: "Fredoka One", sans-serif;
   line-height: var(--line-height);
   background-color: var(--color-bg);
 }

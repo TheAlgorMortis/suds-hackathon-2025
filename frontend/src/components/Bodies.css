@@ -4,14 +4,17 @@
 .sectionHeading {
   display: flex;
   gap: 0.5rem;
+  font-size: 2.5rem;
   text-align: center;
-  color: var(--fg-color);
-  background-color: var(--section-heading);
-  border: 3px solid var(--border-color);
+  color: var(--gold);
+  background-color: var(--maroon);
+  border: 5px solid var(--border-color);
   margin-bottom: 0.5rem;
   padding: 0.5rem 0.5rem;
   border-radius: 1rem;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
   align-items: center;
   justify-content: center;
 }
@@ -22,8 +25,8 @@
   font-size: 1.2rem;
   font-weight: 400;
   color: var(--fg-color);
-  background-color: var(--bg-color);
-  border: 3px solid var(--border-color);
+  background-color: var(--white);
+  border: 5px solid var(--border-color);
   padding-left: 1rem;
   padding-right: 1rem;
   margin-bottom: 0.5rem;
@@ -34,7 +37,9 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
   flex-grow: 1;
 }
 
@@ -51,26 +56,9 @@
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
   border-radius: 1rem;
-  transition: background 0.2s, transform 0.1s;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Subheading for sections */
-.blogInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  text-align: center;
-  color: var(--fg-color);
-  background-color: var(--section-subheading);
-  border: 3px solid var(--border-color);
-  padding-left: 1rem;
-  margin-bottom: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
-  border-radius: 1rem;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
   align-items: center;
   justify-content: center;
 }
@@ -81,14 +69,15 @@
   gap: 0.5rem;
   text-align: center;
   color: var(--fg-color);
-  background-color: var(--section-subheading);
   border: 3px solid var(--border-color);
   padding-left: 1rem;
   margin-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
   border-radius: 1rem;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
   align-items: center;
   justify-content: center;
 }
@@ -104,7 +93,9 @@
   background-color: var(--btn-color);
   padding: 0.5rem 0.5rem;
   border: 3px solid var(--btn-border);
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
   font-weight: 900;
   border-radius: 1rem;
   cursor: pointer;
@@ -122,11 +113,14 @@
   color: var(--fg-color);
   display: flex;
   justify-content: center;
+  font-size: 1.3rem;
   align-items: center;
-  background-color: var(--btn-color);
+  background-color: var(--gold);
   padding: 0.5rem 0.5rem;
-  border: 3px solid var(--btn-border);
-  transition: background 0.2s, transform 0.1s;
+  border: 3px solid var(--maroon);
+  transition:
+    background 0.2s,
+    transform 0.1s;
   font-weight: 900;
   border-radius: 1rem;
   width: 100%;
@@ -137,8 +131,11 @@
 
 /* hover for user Buttons */
 .outerButton:hover {
-  background: var(--btn-hover);
+  background: var(--maroon);
+  color: var(--white);
 }
+
+/*TODO: remove these if not needed */
 
 /******************\
 * Eduction Section *
@@ -147,20 +144,22 @@
 .semesterGroup {
   display: flex;
   gap: 2rem;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
 }
 
 .semester {
   gap: 2rem;
   flex: 1;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
 }
-
 
 /******************\
 *   Blogs Section  *
 \******************/
-
 
 /* Section for blog filters */
 .blogFilters {
@@ -176,7 +175,9 @@
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
   border-radius: 1rem;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
   align-items: center;
 }
 
@@ -188,17 +189,22 @@
   flex-direction: row;
   gap: 0.5rem;
   margin: 0 auto;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
 }
 
 /* searchBar */
 .searchBar {
-  color: var(--fg-color);
+  color: var(--maroon);
   background-color: var(--bg-color);
+  font-size: 1.2rem;
   padding: 0.4rem 0.5rem;
-  border: 2px solid var(--border-color);
+  border: 3px solid var(--gold);
   border-radius: 1rem;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
 }
 
 /* Tags */
@@ -212,7 +218,9 @@
   border: 3px solid var(--border-color);
   padding: 0.2rem 0.4rem;
   border-radius: 1rem;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
 }
 
 /* Active tags in filter */
@@ -223,7 +231,9 @@
   border: 3px solid var(--border-color);
   padding: 0.2rem 0.4rem;
   border-radius: 1rem;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
 }
 
 .tagButton {
@@ -234,7 +244,9 @@
   border: 3px solid var(--border-color);
   padding: 0.2rem 0.4rem;
   border-radius: 1rem;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
   cursor: pointer;
 }
 
@@ -254,7 +266,9 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   align-items: center;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
 }
 
 .tagAdder {
@@ -274,7 +288,9 @@
   background-color: var(--btn-color);
   padding: 0.2rem 0.5rem;
   border: 3px solid var(--btn-border);
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
   border-radius: 1rem;
   cursor: pointer;
 }
@@ -325,7 +341,9 @@
   border: 3px solid var(--btn-border);
   border-radius: 1.5rem;
   padding: 2rem, 2rem;
-  transition: background 0.1s, transform 0.1s;
+  transition:
+    background 0.1s,
+    transform 0.1s;
   cursor: pointer;
 }
 
@@ -357,20 +375,21 @@
 .delButton {
   color: var(--fg-color);
   background-color: var(--btn-color);
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
   font-weight: 900;
   border-radius: 1rem;
   cursor: pointer;
   padding: 0.3rem 0.6rem;
   position: absolute;
   top: 10px;
-  right: 60px
+  right: 60px;
 }
 
 .delButton:hover {
   background-color: var(--btn-hover);
 }
-
 
 /* Skills */
 
@@ -396,11 +415,12 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
   flex-grow: 1;
   align-items: center;
 }
-
 
 @media (max-width: 1080px) {
   .sectionBody {

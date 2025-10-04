@@ -27,7 +27,7 @@ function Title() {
   return (
     <div className="titleGroup">
       <h1 className="title">Maroonut</h1>
-      <h3 className="subtitle"> A Dylan Squared Project </h3>
+      <h2 className="subtitle"> A Dylan Squared Project </h2>
     </div>
   );
 }

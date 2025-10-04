@@ -1,8 +1,13 @@
 #root {
-  max-width: 1280px;
+  height: 100vh;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0.4rem;
   text-align: center;
+  background-image: url("/su.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .logo {
@@ -39,4 +44,27 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Body style for overall page */
+.body {
+  overflow: auto;
+  overflow-x: hidden;
+  padding: 1rem;
+  width: 70%;
+  align-items: center;
+  max-width: 100%;
+  margin: 0 auto;
+  list-style-position: inside;
+}
+
+@media (max-width: 1080px) {
+  .body {
+    overflow: auto;
+    overflow-x: hidden;
+    width: 100%;
+    padding: 0.5rem 0rem;
+    max-width: 100%;
+    margin: 0 auto;
+  }
 }

@@ -14,13 +14,13 @@ function App() {
     <>
       <BrowserRouter>
         <Header username={username} setUsername={setUsername} />
-        <main>
+        <main className="body">
           <Routes>
             {/* Home Page */}
             <Route path="/" element={<Home />} />
             {/* Home Page */}
             <Route
-              path="/login" // <- use same casing as your NavLink
+              path="/login"
               element={<Login setUsername={setUsername} />}
             />
             {/* None found */}
