@@ -1,5 +1,5 @@
-import type { Module, Req } from "../types.ts";
-import type { ReqString } from "../types.ts";
+import type { Module, Req } from "../types";
+import { ReqString } from "../types";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./Bodies.css";

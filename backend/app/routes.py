@@ -81,6 +81,11 @@ def init_routes(app: FastAPI):
         service.db.update_review(review)
         return {}  # pyright: ignore[reportUnknownVariableType]
 
+    @app.delete("/api/v1/reviews/{review_id}")
+    async def delete_review(review_id: UUID4, service: InjectedService):
+        service.db.delete_review(review_id)
+        return {}  # pyright: ignore[reportUnknownVariableType]
+
     @app.post("/api/v1/votes/")
     async def get_user_vote(vote: Vote, service: InjectedService):
         service.db.set_vote(vote)

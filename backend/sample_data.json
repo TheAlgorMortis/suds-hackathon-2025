@@ -12,10 +12,7 @@
       "email": "alsodylan@example.com",
       "password": "pass1"
     },
-    {
-      "username": "pixelwave",
-      "name": "Riley Johnson",
-      "email": "rileyj@example.com",
+    { "username": "pixelware", "name": "Riley Johnson", "email": "rileyj@example.com",
       "password": "pass1"
     },
     {
@@ -119,13 +116,119 @@
   "registrations": [
     { "user": "algor", "module": "CS114", "status": "distinction" },
     { "user": "algor", "module": "CS144", "status": "distinction" },
+    { "user": "algor", "module": "CS214", "status": "inProgress" },
+    { "user": "algor", "module": "CS244", "status": "inProgress" },
+    { "user": "straws11", "module": "CS114", "status": "passed" },
+    { "user": "straws11", "module": "CS144", "status": "passed" },
     { "user": "straws11", "module": "CS214", "status": "passed" },
     { "user": "straws11", "module": "CS244", "status": "passed"},
     { "user": "straws11", "module": "CS313", "status": "inProgress" },
-    { "user": "algor", "module": "CS214", "status": "inProgress" },
-    { "user": "algor", "module": "CS244", "status": "inProgress" },
     { "user": "pixelware", "module": "CS244", "status": "failed" },
     { "user": "nullstack", "module": "CS244", "status": "failed" },
     { "user": "nullstack", "module": "CS314", "status": "inProgress" }
+  ],
+  "requisites": [
+    {
+      "parent": "CS214",
+      "children": ["CS114", "CS144"],
+      "reqType": ["coreq", "prereq"]
+    },
+    {
+      "parent": "CS244",
+      "children": ["CS214", "CS114", "CS144"],
+      "reqType": ["coreq", "prereq", "prereqPass"]
+    },
+    {
+      "parent": "CS313",
+      "children": ["CS214"],
+      "reqType": ["prereq"]
+    },
+    {
+      "parent": "CS343",
+      "children": ["CS344", "CS214"],
+      "reqType": ["coreq", "prereqPass"]
+    }
+  ],
+  "reviews": [
+    {
+      "username": "straws11",
+      "module": "CS144",
+      "title": "Solid module",
+      "text": "Good balance between theory and coding. Projects were time-consuming but rewarding.",
+      "rating": 8,
+      "date": "2025-10-01T10:30:00Z"
+    },
+    {
+      "username": "algor",
+      "module": "CS114",
+      "title": "Great intro",
+      "text": "Really well-taught for beginners, even though Python was new to me.",
+      "rating": 9,
+      "date": "2025-09-15T14:10:00Z"
+    },
+    {
+      "username": "pixelware",
+      "module": "CS214",
+      "title": "Challenging but fun",
+      "text": "Sorting algorithms nearly killed me, but I get them now. Worth it.",
+      "rating": 8,
+      "date": "2025-09-20T12:00:00Z"
+    },
+    {
+      "username": "nullstack",
+      "module": "CS343",
+      "title": "Web + Databases combo",
+      "text": "Actually practical stuff for once. Built a full app and learned SQL properly.",
+      "rating": 9,
+      "date": "2025-10-02T09:45:00Z"
+    },
+    {
+      "username": "byteforge",
+      "module": "CS244",
+      "title": "Assembly pain",
+      "text": "Took forever to wrap my head around addressing modes. Still kinda cool.",
+      "rating": 7,
+      "date": "2025-09-18T16:20:00Z"
+    },
+    {
+      "username": "syntaxsiren",
+      "module": "CS314",
+      "title": "Concurrency brain melt",
+      "text": "Threads everywhere. I loved it though, once it clicked.",
+      "rating": 9,
+      "date": "2025-10-03T11:00:00Z"
+    },
+    {
+      "username": "logicloop",
+      "module": "CS345",
+      "title": "Abstract but fascinating",
+      "text": "Automata and Turing machines are wild. Hard but satisfying once you get it.",
+      "rating": 8,
+      "date": "2025-09-25T08:30:00Z"
+    },
+    {
+      "username": "straws11",
+      "module": "CS343",
+      "title": "Loved this one",
+      "text": "Finally felt like building something real. Web app project was great.",
+      "rating": 10,
+      "date": "2025-10-04T15:00:00Z"
+    },
+    {
+      "username": "algor",
+      "module": "CS244",
+      "title": "Low-level grind",
+      "text": "Interesting but pretty tough to follow at times. Needs better lectures.",
+      "rating": 6,
+      "date": "2025-09-28T17:10:00Z"
+    },
+    {
+      "username": "nullstack",
+      "module": "CS144",
+      "title": "More C++, less sleep",
+      "text": "I didn’t love the language but learned a lot. Still worth taking.",
+      "rating": 7,
+      "date": "2025-09-22T13:15:00Z"
+    }
   ]
 }

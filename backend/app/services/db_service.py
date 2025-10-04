@@ -117,6 +117,12 @@ class DbService:
         existing_review.date = datetime.now()
         self.session.commit()
 
+    def delete_review(self, review_id: uuid.UUID):
+        _ = self.session.execute(
+            delete(DbReview).where(DbReview.review_id == review_id)
+        )
+        self.session.commit()
+
     # ---- VOTES -----
     def set_vote(self, vote: Vote):
         """
@@ -158,20 +164,12 @@ class DbService:
     # ---- OTHER -----
 
     def clear_database(self):
-        _ = self.session.execute(
-            text(
-                """
-            TRUNCATE TABLE
-                modules,
-                registrations,
-                requisites,
-                reviews,
-                users,
-                votes,
-            RESTART IDENTITY CASCADE;
-            """
+        tables = ["votes", "reviews", "requisites", "registrations", "modules", "users"]
+
+        for table in tables:
+            _ = self.session.execute(
+                text(f"TRUNCATE TABLE {table} RESTART IDENTITY CASCADE;")
             )
-        )
         self.session.commit()
 
     def close(self):

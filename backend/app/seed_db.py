@@ -1,4 +1,4 @@
-from app.db_models import Module, Registration, User
+from app.db_models import Module, Registration, Requisite, Review, User
 from app.services.db_service import DbService
 import json
 
@@ -30,6 +30,27 @@ def load_sample_data(db: DbService, json_file: str = "sample_data.json"):
         module = modules_by_code[r["module"]]
         registration = Registration(user=user, module=module, status=r["status"])
         sess.add(registration)
+
+    for req in data["requisites"]:
+        for i in range(len(req["children"])):
+            parent_id = modules_by_code[req["parent"]].module_id
+            child_id = modules_by_code[req["children"][i]].module_id
+            r = Requisite(
+                parent_id=parent_id, child_id=child_id, requisite_type=req["reqType"][i]
+            )
+            sess.add(r)
+    for review in data["reviews"]:
+        module = modules_by_code[review["module"]]
+        user = users_by_name[review["username"]]
+        rev = Review(
+            user_id=user.user_id,
+            module_id=module.module_id,
+            title=review["title"],
+            text=review["text"],
+            rating=review["rating"],
+            date=review["date"],
+        )
+        sess.add(rev)
 
     sess.commit()
 
