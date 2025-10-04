@@ -13,7 +13,7 @@ def load_sample_data(db: DbService, json_file: str = "sample_data.json"):
     for u in data["users"]:
         user = User(**u)
         sess.add(user)
-        users_by_name[u["name"]] = user
+        users_by_name[u["username"]] = user
 
     # Create modules
     modules_by_code = {}

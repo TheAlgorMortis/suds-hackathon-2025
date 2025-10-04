@@ -3,7 +3,15 @@ import uuid
 from sqlalchemy import create_engine, delete, insert, or_, select, text
 from sqlalchemy.orm import Session, sessionmaker
 from app.pydantic_models import CreateReview, Vote
-from app.db_models import User, Module, Review as DbReview, Vote as DbVote, VoteEnum
+from app.db_models import (
+    Registration,
+    Status,
+    User,
+    Module,
+    Review as DbReview,
+    Vote as DbVote,
+    VoteEnum,
+)
 
 POSTGRES_DB_URL = "postgresql://user:password@localhost:5432/backend_db"
 
@@ -66,6 +74,17 @@ class DbService:
         """
         module = self.get_module_by_id(module_id)
         return module.required_modules
+
+    def get_module_status(self, user_id: uuid.UUID, module_id: uuid.UUID) -> Status:
+        """
+        Enrollment status of a user for a particular module
+        """
+        reg = self.session.scalar(
+            select(Registration).where(
+                Registration.module_id == module_id, Registration.user_id == user_id
+            )
+        )
+        return reg.status if reg is not None else Status.NOT_REGISTERED
 
     # ----- REVIEWS -----
     def insert_review(self, review: CreateReview):

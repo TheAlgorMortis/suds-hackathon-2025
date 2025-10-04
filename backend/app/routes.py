@@ -84,3 +84,9 @@ def init_routes(app: FastAPI):
     async def get_user_vote(vote: Vote, service: InjectedService):
         service.db.set_vote(vote)
         return {}  # pyright: ignore[reportUnknownVariableType]
+
+    @app.get("/api/v1/module-status/{module_id}/{user_id}")
+    async def get_module_status(
+        module_id: UUID4, user_id: UUID4, service: InjectedService
+    ):
+        return {"status": service.db.get_module_status(user_id, module_id)}

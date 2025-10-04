@@ -65,6 +65,8 @@ def module_to_requirement_schema(parent: DbModule, child: DbModule) -> Requireme
 def review_to_schema(review: DbReview) -> Review:
     vote_list: list[Vote] = review.votes
     votes: int = 0
+    matches = list(filter(lambda x: x.user_id == review.user_id, review.votes))
+    user_vote = None if len(matches) == 0 else matches[0].vote
 
     for vote in vote_list:
         votes += 1 if vote.vote == VoteEnum.UP else -1
@@ -77,4 +79,5 @@ def review_to_schema(review: DbReview) -> Review:
         rating=review.rating,
         date=review.date,
         votes=votes,
+        userVote=user_vote,
     )
