@@ -28,7 +28,6 @@ def module_to_requirement_schema(parent: DbModule, child: DbModule) -> Requireme
     return Requirement(
         moduleId=child.module_id,
         code=child.code,
-        name=child.name,
         type=list(
             filter(lambda x: x.child_id == child.module_id, parent.req_modules_link)
         )[0].requisite_type,

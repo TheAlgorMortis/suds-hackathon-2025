@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import create_engine, select, text
+from sqlalchemy import create_engine, or_, select, text
 from sqlalchemy.orm import Session, sessionmaker
 from app.db_models import User, Module, Review
 
@@ -25,6 +25,16 @@ class DbService:
         if user is None:
             raise ValueError(f"User with id {user_id} not present")
         return user
+
+    def get_user_by_username_email(self, username_email: str) -> User | None:
+        """
+        Get user using email or username, either
+        """
+        return self.session.scalar(
+            select(User).where(
+                or_(User.username == username_email, User.email == username_email)
+            )
+        )
 
     def get_user_modules(self, user_id: uuid.UUID) -> list[Module]:
         """

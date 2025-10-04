@@ -1,6 +1,8 @@
 from typing import Annotated
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, HTTPException
 
+from app.handlers import handle_login
+from app.pydantic_models import LoginRequest
 from app.schema_translators import module_to_schema
 from app.services.service import Service
 
@@ -35,3 +37,10 @@ def init_routes(app: FastAPI):
     def search_modules(service: InjectedService):
         # TODO: impl filtering
         return [module_to_schema(mod) for mod in service.db.get_all_modules()]
+
+    @app.post("/api/v1/auth/login")
+    def login(request: LoginRequest, service: InjectedService):
+        err: str | None = handle_login(service, request)
+        if err is None:
+            return {}  # pyright: ignore[reportUnknownVariableType]
+        raise HTTPException(status_code=401, detail=err)

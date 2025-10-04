@@ -3,7 +3,14 @@ All Pydantic models, used for network facing parsing both ways
 """
 
 from typing import ClassVar
-from pydantic import UUID4, BaseModel, ConfigDict, Field, field_serializer
+from pydantic import (
+    UUID4,
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_serializer,
+    model_validator,
+)
 
 from app.db_models import RequisiteEnum
 
@@ -22,7 +29,6 @@ class Requirement(BaseModel):
     model_config: ClassVar[ConfigDict] = ConfigDict(populate_by_name=True)
     module_id: UUID4 = Field(..., alias="moduleId")
     code: str
-    name: str
     req_type: RequisiteEnum = Field(..., alias="type")
 
     @field_serializer("module_id")
@@ -43,3 +49,11 @@ class Module(BaseModel):
     @field_serializer("module_id")
     def uuid_to_string(self, uuid: UUID4) -> str:
         return str(uuid)
+
+
+class LoginRequest(BaseModel):
+    model_config: ClassVar[ConfigDict] = ConfigDict(populate_by_name=True)
+
+    # either one
+    username_email: str = Field(..., alias="usernameEmail")
+    password: str

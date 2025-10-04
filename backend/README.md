@@ -18,16 +18,17 @@ sudo docker compose up -d
 
 (d flag if you want it detached, i.e. not block that terminal. recommended)
 
-If there are new db revisions (alembic migrations):
-
-```bash
-alembic upgrade head
-```
-
 Start venv:
 
 ```bash
 source .venv/bin/activate
+```
+
+
+If there are new db revisions (alembic migrations):
+
+```bash
+alembic upgrade head
 ```
 
 Run backend:
