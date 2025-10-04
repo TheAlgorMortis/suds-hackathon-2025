@@ -12,7 +12,9 @@
       "email": "alsodylan@example.com",
       "password": "pass1"
     },
-    { "username": "pixelware", "name": "Riley Johnson", "email": "rileyj@example.com",
+    { "username": "pixelware",
+      "name": "Riley Johnson",
+      "email": "rileyj@example.com",
       "password": "pass1"
     },
     {
@@ -38,6 +40,26 @@
       "name": "Noah Pretorius",
       "email": "noah.p@example.com",
       "password": "pass1"
+    }
+  ],
+  "tutors": [
+    {
+      "username": "straws11",
+      "modules": ["CS144", "CS114"],
+      "hourlyRate": 150,
+      "description": "Great at tutoring"
+    },
+    {
+      "username": "algor",
+      "modules": ["CS144", "CS114"],
+      "hourlyRate": 175,
+      "description": "Pretty good at tutoring"
+    },
+    {
+      "username": "byteforge",
+      "modules": ["CS114", "CS144", "CS214", "CS244"],
+      "hourlyRate": 200,
+      "description": "The best at tutoring"
     }
   ],
   "modules": [
@@ -69,10 +91,7 @@
       "description": "Basic computer architecture. Programming in machine language and assembly language. Assemblers, binders and loaders. Basic concepts of operating systems; memory management, process management and file systems.",
       "lecture_hours": 3,
       "tut_hours": 3
-    },
-    {
-      "code": "CS313",
-      "name": "Computer Networks",
+    }, { "code": "CS313", "name": "Computer Networks",
       "description": "Introduction to networks in general and the internet in particular. Architecture and protocols. Allocation of resources and congestion control. Network security. Applications.",
       "lecture_hours": 3,
       "tut_hours": 3
@@ -125,7 +144,11 @@
     { "user": "straws11", "module": "CS313", "status": "inProgress" },
     { "user": "pixelware", "module": "CS244", "status": "failed" },
     { "user": "nullstack", "module": "CS244", "status": "failed" },
-    { "user": "nullstack", "module": "CS314", "status": "inProgress" }
+    { "user": "nullstack", "module": "CS314", "status": "inProgress" },
+    { "user": "byteforge", "module": "CS114", "status": "distinction" },
+    { "user": "byteforge", "module": "CS144", "status": "distinction" },
+    { "user": "byteforge", "module": "CS214", "status": "distinction" },
+    { "user": "byteforge", "module": "CS244", "status": "distinction" }
   ],
   "requisites": [
     {

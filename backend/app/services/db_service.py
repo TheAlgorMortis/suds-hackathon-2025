@@ -6,6 +6,7 @@ from app.pydantic_models import CreateReview, Vote
 from app.db_models import (
     Registration,
     Status,
+    Tutor,
     User,
     Module,
     Review as DbReview,
@@ -117,9 +118,11 @@ class DbService:
         existing_review.date = datetime.now()
         self.session.commit()
 
-    def delete_review(self, review_id: uuid.UUID):
+    def delete_review(self, module_id: uuid.UUID, user_id: uuid.UUID):
         _ = self.session.execute(
-            delete(DbReview).where(DbReview.review_id == review_id)
+            delete(DbReview).where(
+                DbReview.module_id == module_id, DbReview.user_id == user_id
+            )
         )
         self.session.commit()
 
@@ -171,6 +174,13 @@ class DbService:
                 text(f"TRUNCATE TABLE {table} RESTART IDENTITY CASCADE;")
             )
         self.session.commit()
+
+    def get_tutors(self, module_id: uuid.UUID) -> list[Tutor]:
+        mod = self.get_module_by_id(module_id)
+        return mod.tutors
+
+    def get_tutor_by_id(self, tutor_id: uuid.UUID) -> Tutor | None:
+        return self.session.scalar(select(Tutor).where(Tutor.user_id == tutor_id))
 
     def close(self):
         """

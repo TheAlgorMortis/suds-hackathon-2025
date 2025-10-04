@@ -120,3 +120,14 @@ class Vote(BaseModel):
     review_id: UUID4 = Field(..., alias="reviewId")
     user_id: UUID4 = Field(..., alias="userId")
     vote: VoteEnum | None = None
+
+
+class Tutor(BaseModel):
+    model_config: ClassVar[ConfigDict] = ConfigDict(populate_by_name=True)
+
+    username: str
+    name: str
+    email: str
+    description: str
+    hourly_rate: int = Field(..., alias="hourlyRate")
+    modules: list[ModulePreview]

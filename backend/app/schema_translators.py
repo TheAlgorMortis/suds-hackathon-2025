@@ -6,13 +6,21 @@ SQLAlchemy -> Pydantic
 
 from math import floor
 from uuid import UUID
-from app.pydantic_models import Module, ModulePreview, Requirement, CreateReview, Review
+from app.pydantic_models import (
+    Module,
+    ModulePreview,
+    Requirement,
+    CreateReview,
+    Review,
+    Tutor,
+)
 from app.db_models import (
     Review as DbReview,
     User as DbUser,
     Module as DbModule,
     Vote,
     VoteEnum,
+    Tutor as DbTutor,
 )
 
 
@@ -81,4 +89,15 @@ def review_to_schema(review: DbReview, user_id: UUID) -> Review:
         date=review.date,
         votes=votes,
         userVote=user_vote,
+    )
+
+
+def tutor_to_schema(tutor: DbTutor) -> Tutor:
+    return Tutor(
+        username=tutor.user.username,
+        name=tutor.user.name,
+        email=tutor.user.email,
+        description=tutor.description,
+        hourlyRate=tutor.hourly_rate,
+        module
     )

@@ -8,6 +8,7 @@ from app.schema_translators import (
     module_to_preview_schema,
     module_to_schema,
     review_to_schema,
+    tutor_to_schema,
 )
 from app.services.service import Service
 
@@ -81,9 +82,9 @@ def init_routes(app: FastAPI):
         service.db.update_review(review)
         return {}  # pyright: ignore[reportUnknownVariableType]
 
-    @app.delete("/api/v1/reviews/{review_id}")
-    async def delete_review(review_id: UUID4, service: InjectedService):
-        service.db.delete_review(review_id)
+    @app.delete("/api/v1/reviews/{module_id}/{user_id}")
+    async def delete_review(module_id: UUID4, user_id: UUID4, service: InjectedService):
+        service.db.delete_review(module_id, user_id)
         return {}  # pyright: ignore[reportUnknownVariableType]
 
     @app.post("/api/v1/votes/")
@@ -96,3 +97,11 @@ def init_routes(app: FastAPI):
         module_id: UUID4, user_id: UUID4, service: InjectedService
     ):
         return {"status": service.db.get_module_status(user_id, module_id)}
+
+    @app.get("/api/v1/tutors/{module_id}")
+    async def get_tutors_for_module(module_id: UUID4, service: InjectedService):
+        return [tutor_to_schema(t) for t in service.db.get_tutors(module_id)]
+
+    @app.get("/api/v1/tutors/modules/{tutor_id}")
+    async def get_modules_for_tutor(tutor_id: UUID4, service: InjectedService):
+        return handle_modules_for_tutor(tutor_id, service)

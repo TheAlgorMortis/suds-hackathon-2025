@@ -1,4 +1,12 @@
-from app.db_models import Module, Registration, Requisite, Review, User
+from app.db_models import (
+    Module,
+    Registration,
+    Requisite,
+    Review,
+    Tutor,
+    User,
+    tutor_module,
+)
 from app.services.db_service import DbService
 import json
 
@@ -51,6 +59,24 @@ def load_sample_data(db: DbService, json_file: str = "sample_data.json"):
             date=review["date"],
         )
         sess.add(rev)
+
+    for t in data["tutors"]:
+        user = users_by_name[t["username"]]
+        tutor = Tutor(
+            user_id=user.user_id,
+            description=t["description"],
+            hourly_rate=t["hourlyRate"],
+        )
+        sess.add(tutor)
+        sess.commit()
+        sess.refresh(tutor)
+        for i in range(len(t["modules"])):
+            module = modules_by_code[t["modules"][i]]
+            _ = sess.execute(
+                tutor_module.insert().values(
+                    tutor_id=tutor.tutor_id, module_id=module.module_id
+                )
+            )
 
     sess.commit()
 

@@ -4,6 +4,7 @@ import uuid
 from sqlalchemy import (
     UUID,
     CheckConstraint,
+    Column,
     DateTime,
     Enum as SAEnum,
     ForeignKey,
@@ -11,6 +12,7 @@ from sqlalchemy import (
     Integer,
     PrimaryKeyConstraint,
     String,
+    Table,
     func,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
@@ -43,6 +45,15 @@ class Base(DeclarativeBase):
     pass
 
 
+# association table linking many-to-many for tutors and modules
+tutor_module = Table(
+    "tutor_module",
+    Base.metadata,
+    Column("tutor_id", ForeignKey("tutors.tutor_id"), primary_key=True),
+    Column("module_id", ForeignKey("modules.module_id"), primary_key=True),
+)
+
+
 class User(Base):
     __tablename__: str = "users"
 
@@ -73,10 +84,11 @@ class User(Base):
         "Registration", back_populates="user"
     )
     votes: Mapped[list["Vote"]] = relationship("Vote", back_populates="user")
+    tutor: Mapped["Tutor"] = relationship("Tutor", back_populates="user")
 
 
 class Module(Base):
-    __tablename__: str = "modules"
+    __tablename__ = "modules"
 
     module_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
@@ -91,6 +103,9 @@ class Module(Base):
     reviews: Mapped[list["Review"]] = relationship("Review", back_populates="module")
     registrations: Mapped[list["Registration"]] = relationship(
         "Registration", back_populates="module"
+    )
+    tutors: Mapped[list["Tutor"]] = relationship(
+        secondary=tutor_module, back_populates="modules"
     )
 
     # modules that are required to take this
@@ -202,4 +217,22 @@ class Requisite(Base):
         ForeignKeyConstraint(["parent_id"], ["modules.module_id"]),
         ForeignKeyConstraint(["child_id"], ["modules.module_id"]),
         PrimaryKeyConstraint("parent_id", "child_id"),
+    )
+
+
+class Tutor(Base):
+    __tablename__ = "tutors"
+    tutor_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+    )
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("users.user_id"), nullable=False, unique=True
+    )
+    description: Mapped[str] = mapped_column(String(10000))
+    hourly_rate: Mapped[int] = mapped_column(Integer)
+
+    # magical relationship linking
+    user: Mapped[User] = relationship("User", back_populates="tutor")
+    modules: Mapped[list[Module]] = relationship(
+        secondary=tutor_module, back_populates="tutors"
     )
