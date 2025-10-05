@@ -1,4 +1,4 @@
-# Maroonit project
+# Maroonut project
 
 ## By Dylan Reid and Dylan Swarts
 
