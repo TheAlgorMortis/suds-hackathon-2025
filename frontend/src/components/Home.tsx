@@ -4,12 +4,14 @@ import { FaBook } from "react-icons/fa";
 import { LuNut } from "react-icons/lu";
 import { FaGraduationCap } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 /**
  * This component defines the landing page of the website and provides the user
- * with the vision and functionality of maroonut.
+ * with the vision and functionality of Maroonut.
  */
 export default function Home() {
+  const navigate = useNavigate();
   return (
     <div>
       <h2 className="sectionHeading"> Welcome to Maroonut! </h2>
@@ -19,8 +21,8 @@ export default function Home() {
         </h3>
         <p>
           This is a platform designed for users to help each other make informed
-          choices for their module selections at stellenbosch university, share
-          advice for modules, as well as connect students and tutors.
+          choices for their module selections at Stellenbosch University, share
+          advice for modules, as well as connect with students and tutors.
         </p>
         <h3 className="sectionBlockHeading">
           A modern replacement for the Stellenbosch Yearbook <FaBook />
@@ -40,7 +42,7 @@ export default function Home() {
           the pages of the corresponding modules to make them easy to navigate.
         </p>
         <p>
-          To get started, sign in and navigate to the Modules page of this
+          To get started, sign in and navigate to the <a onClick={() => navigate("/modules")}>Modules</a> page of this
           website.
         </p>
         <h3 className="sectionBlockHeading">
@@ -64,13 +66,13 @@ export default function Home() {
         </p>
         <p>
           As a comparison, this works the same way as Reddit's upvote and
-          downvote system
+          downvote system.
         </p>
         <h3 className="sectionBlockHeading">
           Finding Tutors <FaGraduationCap />
         </h3>
         <p>
-          One of maroonut's primary goals is to connect students with tutors
+          One of Maroonut's primary goals is to connect students with tutors.
         </p>
         <p>
           On each module's page, users can find tutors, who market themselves
@@ -91,6 +93,6 @@ export default function Home() {
           respect.
         </p>
       </div>
-    </div>
+    </div >
   );
 }
