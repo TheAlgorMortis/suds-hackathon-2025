@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { LuNut } from "react-icons/lu";
 import "./Bodies.css";
 import { StatusString } from "../types";
 import { useNavigate, useParams } from "react-router-dom";
@@ -43,49 +44,65 @@ export default function UserProfile() {
 
   return (
     <div>
-      <h2>{username}</h2>
-      <h2>{userInfo.name}</h2>
+      <h2 className="sectionHeading">
+        {userInfo.name} ({username})
+      </h2>
 
-      <div>
-        <h3>{userInfo.email}</h3>
-        <button onClick={() => handleClick(userInfo.email)}>
-          Get in Contact
-        </button>
+      <div className="sectionBlock">
+        <div className="subtitleRow">
+          <h3>Email: {userInfo.email}</h3>
+          <button
+            className="userButton"
+            onClick={() => handleClick(userInfo.email)}
+          >
+            Get in Contact
+          </button>
+        </div>
       </div>
 
-      <h3>Vote count: {userInfo.totalVotes}</h3>
+      <h3 className="sectionHeading">
+        <LuNut />
+        {userInfo.totalVotes} Acorns
+      </h3>
 
-      <h3>Module History</h3>
-      {userInfo.takingModules.map((mod) => (
-        <ModuleRelation
-          key={mod.code}
-          code={mod.code}
-          nme={mod.name}
-          status={mod.status}
-          rating={null}
-        />
-      ))}
+      <div className="sectionBlock">
+        <h3 className="sectionBlockHeading">Module History</h3>
+        {userInfo.takingModules.map((mod) => (
+          <ModuleRelation
+            key={mod.code}
+            code={mod.code}
+            nme={mod.name}
+            status={mod.status}
+            rating={null}
+          />
+        ))}
+      </div>
 
-      <h3>Tutoring Modules</h3>
-      {userInfo.tutoringModules.map((mod) => (
-        <ModuleRelation
-          key={mod.code}
-          code={mod.code}
-          nme={mod.name}
-          status={null}
-          rating={null}
-        />
-      ))}
-      <h3>Reviews</h3>
-      {userInfo.reviews.map((mod) => (
-        <ModuleRelation
-          key={mod.code}
-          code={mod.code}
-          nme={mod.name}
-          status={null}
-          rating={mod.rating}
-        />
-      ))}
+      <div className="sectionBlock">
+        <h3 className="sectionBlockHeading">Ratings</h3>
+        {userInfo.reviews.map((mod) => (
+          <ModuleRelation
+            key={mod.code}
+            code={mod.code}
+            nme={mod.name}
+            status={null}
+            rating={mod.rating}
+          />
+        ))}
+      </div>
+
+      <div className="sectionBlock">
+        <h3 className="sectionBlockHeading">Tutoring Modules</h3>
+        {userInfo.tutoringModules.map((mod) => (
+          <ModuleRelation
+            key={mod.code}
+            code={mod.code}
+            nme={mod.name}
+            status={null}
+            rating={null}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -103,15 +120,16 @@ function ModuleRelation({ code, nme, status, rating }: ModuleRelationProps) {
   };
 
   return (
-    <div>
+    <div className="subtitleRow">
       <button
+        className="outerButton"
         onClick={() => {
           navTo(code);
         }}
       >
         {code}: {nme}
       </button>
-      {status && <h2>{StatusString[status]}</h2>}
+      {status && <h2 className="flexOne">{StatusString[status]}</h2>}
       {rating && (
         <Rater
           initialRating={rating}

@@ -3,6 +3,7 @@ import type { ModulePreview } from "../types";
 import { getPreviews } from "../api/moduleApi";
 import { useState, useEffect, useMemo } from "react";
 import { FaSearch } from "react-icons/fa";
+import Rater from "./Rater";
 
 interface ModulesProps {
   username: string;
@@ -19,11 +20,13 @@ export default function ModuleList({ username }: ModulesProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
   const [modulePreviews, setModulePreviews] = useState<ModulePreview[]>([]);
+  // This isn't currently used right now, but is intended to be used in future
+  // versions for polish
   const [loading, setLoading] = useState(true);
 
+  // Load module previews
   useEffect(() => {
     let cancelled = false;
-
     (async () => {
       try {
         const data = await getPreviews();
@@ -43,6 +46,7 @@ export default function ModuleList({ username }: ModulesProps) {
     };
   }, []);
 
+  // Handle Searches
   useEffect(() => {
     const q = searchTerm.trim().toLowerCase();
 
@@ -77,11 +81,11 @@ export default function ModuleList({ username }: ModulesProps) {
       <ModuleSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       {visiblePreviews.length === 0 ? (
-        <p>No modules match.</p>
+        <h2 className="sectionSubHeading"> No modules </h2>
       ) : (
         visiblePreviews.map((m) => (
           <ModulePreviewBlock
-            key={m.code ?? m.title}
+            key={m.code ?? m.name}
             preview={m}
             searchTerm={searchTerm}
             username={username}
@@ -107,8 +111,10 @@ interface ModuleSearchProps {
 function ModuleSearch({ searchTerm, setSearchTerm }: ModuleSearchProps) {
   return (
     <div className="searchBarGroup">
-      <h3>Search Module Codes / Names</h3>
-      <FaSearch />
+      <h3 className="sectionSubHeading">
+        <FaSearch />
+        Search:
+      </h3>
       <input
         className="searchBar"
         type="text"
@@ -133,38 +139,43 @@ interface ModulePreviewProps {
  */
 function ModulePreviewBlock({ preview, searchTerm }: ModulePreviewProps) {
   const navigate = useNavigate();
-  let title = preview.code + ": " + preview.name;
+  const title: string = preview.code + ": " + preview.name;
   const titleSplit = splitBySubstring(title, searchTerm);
 
   /* Navigate to individual modules */
-  const selectModule = (code) => {
+  const selectModule = (code: string) => {
     navigate(`/modules/${code}`, { replace: true });
   };
 
   return (
     <div className="sectionBlock">
-      <h2>
+      <h2 className="sectionBlockHeading">
         {titleSplit.preTotal}
         <span className="searchHighlight">{titleSplit.totalSub}</span>
         {titleSplit.postTotal}
       </h2>
+      <div className=".ratingGroup">
+        <h2 className="borderlessHeading">
+          Average Rating:
+          <Rater
+            initialRating={preview.rating}
+            setFunction={() => {}}
+            editable={false}
+          />
+        </h2>
+      </div>
       <button
         className="outerButton"
         onClick={() => selectModule(preview.code)}
       >
         <h2>Find out more</h2>
       </button>
-      <h2> rating: {preview.rating} </h2>
     </div>
   );
 }
 
 /**
  * Splits a string by a substring so that the substring can be highlighted
- *
- * @param {String} total - the full string
- * @param {String} totalSubstring - the substring to search by in total.
- *
  */
 function splitBySubstring(total: string, totalSubstring: string) {
   if (totalSubstring === "") {

@@ -8,6 +8,9 @@ interface TutorListProps {
   moduleId;
 }
 
+/**
+ * List of Tutors for a module
+ */
 export default function TutorList({ moduleId }: TutorListProps) {
   const [tutors, setTutors] = useState<Tutor[] | null>(null);
   const [loading, setLoading] = useState(true);
@@ -23,7 +26,7 @@ export default function TutorList({ moduleId }: TutorListProps) {
         if (!cancelled) setTutors(data);
       } catch (e) {
         console.error("Failed to load tutors:", e);
-        if (!cancelled) setTutors([]); // show empty state on error
+        if (!cancelled) setTutors([]);
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -34,11 +37,12 @@ export default function TutorList({ moduleId }: TutorListProps) {
     };
   }, [moduleId]);
 
-  if (loading) return <div>Loading tutors…</div>;
-  if (!tutors || tutors.length === 0) return <div>No tutors yet.</div>;
+  if (!tutors || tutors.length === 0)
+    return <h1 className="sectionHeading">No tutors yet.</h1>;
 
   return (
     <div>
+      <h3 className="sectionHeading"> Tutors </h3>
       {tutors.map((tutor) => (
         <TutorBlock key={tutor.id} tutor={tutor} />
       ))}
@@ -50,6 +54,9 @@ interface TutorBlockProps {
   tutor: Tutor;
 }
 
+/**
+ * Individual tutor advert block
+ */
 function TutorBlock({ tutor }: TutorBlockProps) {
   const navigate = useNavigate();
   const handleClick = (email) => {
@@ -61,26 +68,29 @@ function TutorBlock({ tutor }: TutorBlockProps) {
   };
   return (
     <div className="sectionBlock">
-      <button
-        onclick={() => {
-          navTo(tutor.username);
-        }}
-      >
+      <h2 className="sectionBlockHeading">
         {" "}
-        {tutor.username}{" "}
-      </button>
-      <h2> {tutor.name} </h2>
+        {tutor.name} ({tutor.username}){" "}
+      </h2>
       <p> {tutor.description} </p>
       <p> R{tutor.hourlyRate} per hour </p>
-      <div>
-        <h3>{tutor.email}</h3>
+      <h3>{tutor.email}</h3>
+      <div className="flexRow">
         <button
+          className="outerButton"
           onClick={() => {
             handleClick(tutor.email);
           }}
         >
-          {" "}
-          Enquire Now!{" "}
+          Enquire Now!
+        </button>
+        <button
+          className="outerButton"
+          onclick={() => {
+            navTo(tutor.username);
+          }}
+        >
+          Visit User Profile
         </button>
       </div>
     </div>

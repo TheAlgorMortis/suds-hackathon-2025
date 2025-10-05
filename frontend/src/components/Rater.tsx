@@ -9,6 +9,10 @@ interface RaterProps {
   editable: boolean;
 }
 
+/**
+ * A rater to display the stars of a module and, with editable enabled,
+ * manipulate the rating.
+ */
 export default function Rater({
   initialRating,
   setFunction,
@@ -21,46 +25,46 @@ export default function Rater({
   }, [currentRating]);
 
   return (
-    <div>
-      <div>
-        <Star
-          base={0}
-          currentRating={currentRating}
-          setCurrentRating={setCurrentRating}
-          editable={editable}
-        />
-        <Star
-          base={2}
-          currentRating={currentRating}
-          setCurrentRating={setCurrentRating}
-          editable={editable}
-        />
-        <Star
-          base={4}
-          currentRating={currentRating}
-          setCurrentRating={setCurrentRating}
-          editable={editable}
-        />
-        <Star
-          base={6}
-          currentRating={currentRating}
-          setCurrentRating={setCurrentRating}
-          editable={editable}
-        />
-        <Star
-          base={8}
-          currentRating={currentRating}
-          setCurrentRating={setCurrentRating}
-          editable={editable}
-        />
-      </div>
+    <div className="ratingGroup">
+      <Star
+        base={0}
+        currentRating={currentRating}
+        setCurrentRating={setCurrentRating}
+        editable={editable}
+      />
+      <Star
+        base={2}
+        currentRating={currentRating}
+        setCurrentRating={setCurrentRating}
+        editable={editable}
+      />
+      <Star
+        base={4}
+        currentRating={currentRating}
+        setCurrentRating={setCurrentRating}
+        editable={editable}
+      />
+      <Star
+        base={6}
+        currentRating={currentRating}
+        setCurrentRating={setCurrentRating}
+        editable={editable}
+      />
+      <Star
+        base={8}
+        currentRating={currentRating}
+        setCurrentRating={setCurrentRating}
+        editable={editable}
+      />
     </div>
   );
 }
 
+/**
+ * Individual clickable start
+ */
 function Star({ base, currentRating, setCurrentRating, editable }) {
   const [starSetting, setStarSetting] = useState();
-  let starSymbol;
 
   useEffect(() => {
     if (currentRating <= base) {

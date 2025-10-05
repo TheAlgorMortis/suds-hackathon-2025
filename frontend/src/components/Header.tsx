@@ -59,7 +59,7 @@ function LoginBlock({ username, setUsername }: HeaderProps) {
   } else {
     return (
       <div className="titleGroup">
-        <p> Logged in as {username} </p>
+        <p className="clsWhite"> Logged in as {username} </p>
         <button className="loginLink" onClick={handleLogout}>
           Log Out
         </button>

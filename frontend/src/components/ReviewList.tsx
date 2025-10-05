@@ -8,21 +8,23 @@ interface ReviewListProps {
   moduleId: string;
 }
 
+/**
+ * Displays a list of all reviews for a module, in order of acorn count.
+ * Also controls creating, updating and deleting reviews.
+ */
 export default function ReviewList({ reviews, moduleId }: ReviewListProps) {
-  // --- derived flags (no early returns before hooks) ---
   const mrntId = localStorage.getItem("MRNTid") ?? "";
   const curUsername = (
     localStorage.getItem("MRNTusername") ?? ""
   ).toLowerCase();
   const isLoggedIn = mrntId !== "";
 
-  // --- state (hooks must be unconditional) ---
   const [userStatus, setUserStatus] = useState<string>("");
+  // May be used in a future version.
   const [loading, setLoading] = useState(true);
   const [newPost, setNewPost] = useState(false);
   const [newReview, setNewReview] = useState(null);
 
-  // --- fetch user status when we can ---
   useEffect(() => {
     if (!isLoggedIn) {
       setLoading(false);
@@ -42,7 +44,6 @@ export default function ReviewList({ reviews, moduleId }: ReviewListProps) {
     };
   }, [isLoggedIn, moduleId, mrntId]);
 
-  // --- order reviews: current user's review first, others by votes desc ---
   const { orderedReviews, hasMyReview } = useMemo(() => {
     const arr: Review[] = Array.isArray(reviews) ? reviews.slice() : [];
 
@@ -61,7 +62,6 @@ export default function ReviewList({ reviews, moduleId }: ReviewListProps) {
     return { orderedReviews: ordered, hasMyReview: !!myReview };
   }, [reviews, curUsername]);
 
-  // --- UI gates ---
   if (!isLoggedIn) {
     return (
       <div>
@@ -69,8 +69,6 @@ export default function ReviewList({ reviews, moduleId }: ReviewListProps) {
       </div>
     );
   }
-
-  if (loading) return <p>Loading...</p>;
 
   const canPostBase =
     userStatus === "failed" ||
@@ -95,8 +93,11 @@ export default function ReviewList({ reviews, moduleId }: ReviewListProps) {
 
   return (
     <div>
+      <h3 className="sectionHeading"> Reviews </h3>
       {canPost && !newPost && (
-        <button onClick={createNewReview}>Create New Review</button>
+        <button className="outerButton" onClick={createNewReview}>
+          Create New Review
+        </button>
       )}
       {newPost && (
         <ReviewPost

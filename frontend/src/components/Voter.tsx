@@ -59,12 +59,12 @@ export default function VoterPost({
   const downNut = myVote === "down" ? <BiSolidDownvote /> : <BiDownvote />;
 
   return (
-    <div>
+    <div className="sectionBlockHeading">
       <h4>
         <LuNut /> {curVotes} acorns
       </h4>
-      <button onClick={upVote}> {upNut} </button>
-      <button onClick={downVote}> {downNut} </button>
+      <h4 onClick={upVote}> {upNut} </h4>
+      <h4 onClick={downVote}> {downNut} </h4>
     </div>
   );
 }

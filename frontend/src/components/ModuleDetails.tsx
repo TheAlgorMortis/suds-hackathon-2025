@@ -7,6 +7,10 @@ import TutorList from "./TutorList.tsx";
 import { getReviews } from "../api/moduleApi.ts";
 import type { Module } from "../types";
 
+/**
+ * Organizes all information surrounding a single module,
+ * regulating the module description, ratings, and tutors.
+ */
 export default function ModuleDetails() {
   const { code } = useParams<{ code: string }>();
   const [module, setModule] = useState<Module | null>(null);
@@ -61,8 +65,9 @@ export default function ModuleDetails() {
   return (
     <div>
       <ModuleDescription module={module} />
-      <div>
+      <div className="flexRow">
         <button
+          className="outerButton"
           onClick={() => {
             setDetail("reviews");
           }}
@@ -70,17 +75,18 @@ export default function ModuleDetails() {
           Reviews
         </button>
         <button
+          className="outerButton"
           onClick={() => {
             setDetail("tutors");
           }}
         >
           Tutors
         </button>
-        {detail === "reviews" && (
-          <ReviewList reviews={reviews} moduleId={module.moduleId} />
-        )}
-        {detail === "tutors" && <TutorList moduleId={module.moduleId} />}
       </div>
+      {detail === "reviews" && (
+        <ReviewList reviews={reviews} moduleId={module.moduleId} />
+      )}
+      {detail === "tutors" && <TutorList moduleId={module.moduleId} />}
     </div>
   );
 }

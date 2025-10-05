@@ -11,20 +11,6 @@
   --gold: #b79962;
   --white: #ffffff;
   --border-color: #b79962;
-
-  --bg-color: rgba(255, 255, 255, 0.8);
-  --fg-color: #000000;
-  --fg-hover: #000000;
-  --x-color: #c10f33;
-
-  --btn-border: #880088;
-  --btn-color: #00008f;
-  --btn-hover: #990055;
-  --nav-selected: #f00080;
-  --nav-btn-color: #550055;
-  --section-heading: rgba(100, 0, 100, 0.85);
-  --section-subheading: rgba(25, 20, 80, 0.8);
-  --skill-color: rgba(150, 00, 150, 0.5);
 }
 
 html {

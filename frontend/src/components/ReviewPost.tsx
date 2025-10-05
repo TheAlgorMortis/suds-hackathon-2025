@@ -56,9 +56,12 @@ export default function ReviewPost({
     navigate(`/users/${username}`, { replace: true });
   };
 
+  const date = new Date(review.date);
+
   return (
     <div className="sectionBlock">
       <h2
+        className="sectionBlockHeading"
         contentEditable={editable}
         suppressContentEditableWarning={true}
         onInput={(e: React.FormEvent<HTMLHeadingElement>) =>
@@ -70,22 +73,18 @@ export default function ReviewPost({
       >
         {review.title}
       </h2>
-      <h3>
+      <h3 className="subtitleRow">
         by{" "}
         <button
+          className="userButton"
           onClick={() => {
             navTo(review.username);
           }}
         >
-          {review.username}{" "}
-        </button>{" "}
-        on {review.date}
+          {review.username}
+        </button>
+        on {date.toLocaleString()}
       </h3>
-      <Rater
-        initialRating={rating}
-        setFunction={setRating}
-        editable={editable}
-      />{" "}
       <p
         contentEditable={editable}
         suppressContentEditableWarning={true}
@@ -95,10 +94,22 @@ export default function ReviewPost({
       >
         {review.text}
       </p>
+      <h3 className="borderlessHeading">
+        Rating:
+        <Rater
+          initialRating={rating}
+          setFunction={setRating}
+          editable={editable}
+        />
+      </h3>
       {editable && (
-        <div>
-          <button onClick={submitChanges}>Submit Changes </button>
-          <button onClick={delReview}>Delete Review </button>
+        <div className="flexRow">
+          <button className="outerButton" onClick={submitChanges}>
+            Submit Changes{" "}
+          </button>
+          <button className="outerButton" onClick={delReview}>
+            Delete Review{" "}
+          </button>
         </div>
       )}
       <Voter
