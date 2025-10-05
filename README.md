@@ -8,6 +8,13 @@
 - Backend: Python with fastapi
 - Database: PostgreSQL in a Docker container
 
+### Navigating this Repository
+
+- frontend directory: All frontend code for the website side of the project
+- backend direcctory: All backend code for the server and the database
+- presentation.pptx: Slides used for the Hackathon presentation and project
+  demonstration
+
 ### Motive
 
 Maroonut was built for the SUDS hackathon 2025.
