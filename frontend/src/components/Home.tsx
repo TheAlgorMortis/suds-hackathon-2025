@@ -42,8 +42,11 @@ export default function Home() {
           the pages of the corresponding modules to make them easy to navigate.
         </p>
         <p>
-          To get started, sign in and navigate to the <a onClick={() => navigate("/modules")}>Modules</a> page of this
-          website.
+          To get started, sign in and navigate to the{" "}
+          <span className="maroonText" onClick={() => navigate("/modules")}>
+            Modules
+          </span>{" "}
+          page of this website.
         </p>
         <h3 className="sectionBlockHeading">
           The Module Rate and Review System <LuNut />
@@ -93,6 +96,6 @@ export default function Home() {
           respect.
         </p>
       </div>
-    </div >
+    </div>
   );
 }

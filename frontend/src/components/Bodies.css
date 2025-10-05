@@ -191,6 +191,12 @@
   cursor: pointer;
 }
 
+.maroonText {
+  color:(--maroon);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .userButton:hover {
   background: var(--maroon);
   color: var(--white);
