@@ -149,7 +149,7 @@ function ModulePreviewBlock({ preview, searchTerm }: ModulePreviewProps) {
 
   return (
     <div className="sectionBlock">
-      <h2 className="sectionBlockHeading">
+      <h2 className="searchHeading">
         {titleSplit.preTotal}
         <span className="searchHighlight">{titleSplit.totalSub}</span>
         {titleSplit.postTotal}

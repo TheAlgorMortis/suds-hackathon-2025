@@ -202,6 +202,22 @@
   color: var(--white);
 }
 
+/* Section Block heading */
+.searchHeading {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  font-size: 1.8rem;
+  color: var(--maroon);
+  border: 3px solid var(--border-color);
+  padding: 0.5rem 1.5rem;
+  margin-top: 0.5rem;
+  border-radius: 1rem;
+  transition:
+    background 0.2s,
+    transform 0.1s;
+  justify-content: center;
+}
 /* searchBarGroup */
 .searchBarGroup {
   display: flex;

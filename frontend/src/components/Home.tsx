@@ -96,6 +96,35 @@ export default function Home() {
           respect.
         </p>
       </div>
+      <h2 className="sectionHeading"> About the Developers </h2>
+      <div className="sectionBlock">
+        <p>
+          At the time of writing, Dylan and Dylan are 3rd year students at
+          Stellenbosch University. To find out more about us, you can visit our
+          personal websites here.
+        </p>
+        <div className="flexRow">
+          <button
+            className="outerButton"
+            onClick={() =>
+              window.open(
+                "https://thealgormortis.github.io/personal-website/",
+                "_blank",
+              )
+            }
+          >
+            Dylan Reid's Website
+          </button>
+          <button
+            className="outerButton"
+            onClick={() =>
+              window.open("https://straws11.github.io//", "_blank")
+            }
+          >
+            Dylan Swarts' Website
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
