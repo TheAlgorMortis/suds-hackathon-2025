@@ -86,7 +86,7 @@ function TutorBlock({ tutor }: TutorBlockProps) {
         </button>
         <button
           className="outerButton"
-          onclick={() => {
+          onClick={() => {
             navTo(tutor.username);
           }}
         >

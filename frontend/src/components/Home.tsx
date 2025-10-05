@@ -17,7 +17,7 @@ export default function Home() {
       <h2 className="sectionHeading"> Welcome to Maroonut! </h2>
       <div className="sectionBlock">
         <h3 className="sectionBlockHeading">
-          Who we are <GiSquirrel />
+          Who We Are <GiSquirrel />
         </h3>
         <p>
           This is a platform designed for users to help each other make informed
@@ -25,7 +25,7 @@ export default function Home() {
           advice for modules, as well as connect with students and tutors.
         </p>
         <h3 className="sectionBlockHeading">
-          A modern replacement for the Stellenbosch Yearbook <FaBook />
+          A Modern Replacement for the Stellenbosch Yearbook <FaBook />
         </h3>
         <p>
           Have you ever found yourself struggling to decide what modules to

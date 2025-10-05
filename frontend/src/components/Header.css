@@ -251,13 +251,34 @@
   }
 }
 
-/* Larger screens */
-@media (min-width: 1081px) {
-  .desktopHeader {
-    gap: 0 1.5rem;
+/* smaller screens */
+@media (max-width: 1080px) {
+  .titleGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    flex-direction: column;
   }
 
-  .mobileHeader {
-    display: none;
+  .title {
+    font-size: 1rem;
+  }
+
+  .bigNut {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 0.8rem;
+  }
+  .navButton,
+  .navSelected {
+  }
+  .navLink {
+    font-size: 0.7rem;
+  }
+  .loginLink {
+    font-size: 0.7rem;
   }
 }
