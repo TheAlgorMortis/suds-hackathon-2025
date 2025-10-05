@@ -19,7 +19,7 @@ export const ReqString: Record<ReqType, string> = {
 
 export const StatusString: Record<ModuleStatus, string> = {
   notRegistered: "Unregistered",
-  inProgress: "Module in progrees",
+  inProgress: "Module in progress",
   failed: "Failed",
   passed: "Passed",
   distinction: "Passed with distinction",
